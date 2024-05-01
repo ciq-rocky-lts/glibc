@@ -132,7 +132,7 @@ end \
 Summary: The GNU libc libraries
 Name: glibc
 Version: %{glibcversion}
-Release: %{glibcrelease}.6
+Release: %{glibcrelease}.1
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
 # libraries.
@@ -1031,11 +1031,11 @@ Patch838: glibc-rh2142937-3.patch
 Patch839: glibc-rh2144568.patch
 Patch840: glibc-rh2154914-1.patch
 Patch841: glibc-rh2154914-2.patch
-# (Reverted fixes for rh2237433 were here.)
-Patch848: glibc-rh2234713.patch
-Patch849: glibc-RHEL-2434.patch
-Patch850: glibc-RHEL-2422.patch
-Patch851: glibc-RHEL-3035.patch
+Patch842: iconv-ISO-2022-CN-EXT-fix-out-of-bound-writes.patch
+Patch843: CVE-2024-33599.patch
+Patch844: CVE-2024-33600-nscd-Do-not-send-missing-not-found.patch
+Patch845: CVE-2024-33600-nscd-Avoid-null-pointer-crashes.patch
+Patch846: CVE-2024-33601-CVE-2024-33602.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2866,23 +2866,8 @@ fi
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
-* Wed Sep 20 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-236.6
-- CVE-2023-4911 glibc: buffer overflow in ld.so leading to privilege escalation (RHEL-3035)
-
-* Tue Sep 19 2023 Carlos O'Donell <carlos@redhat.com> - 2.28-236.5
-- Revert: Always call destructors in reverse constructor order (#2237433)
-
-* Mon Sep 18 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-225.4
-- CVE-2023-4806: potential use-after-free in getaddrinfo (RHEL-2422)
-
-* Fri Sep 15 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-225.3
-- CVE-2023-4813: potential use-after-free in gaih_inet (RHEL-2434)
-
-* Fri Sep 15 2023 Carlos O'Donell <carlos@redhat.com> - 2.28-225.2
-- CVE-2023-4527: Stack read overflow in getaddrinfo in no-aaaa mode (#2234713)
-
-* Tue Sep 12 2023 Florian Weimer <fweimer@redhat.com> - 2.28-225.1
-- Always call destructors in reverse constructor order (#2237433)
+* Tue Apr 30 2024 Matt Hink <mhink@ciq.com> - 2.28-225.1
+- CVE-2024-2961, CVE-2024-33599, CVE-2024-33600, CVE-2024-33601, CVE-2024-33602
 
 * Fri Jan 20 2023 Florian Weimer <fweimer@redhat.com> - 2.28-225
 - Enforce a specififc internal ordering for tunables (#2154914)
