@@ -1,4 +1,4 @@
-commit 228cdb00a045ae3b68a91b35c7548bab6029446e
+commit 1c37b8022e8763fedbb3f79c02e05c6acfe5a215
 Author: Siddhesh Poyarekar <siddhesh@sourceware.org>
 Date:   Thu Mar 17 11:44:34 2022 +0530
 
@@ -22,7 +22,6 @@ Date:   Thu Mar 17 11:44:34 2022 +0530
     
     Signed-off-by: Siddhesh Poyarekar <siddhesh@sourceware.org>
     Reviewed-by: DJ Delorie <dj@redhat.com>
-    (cherry picked from commit 1c37b8022e8763fedbb3f79c02e05c6acfe5a215)
 
 Conflicts:
 	nss/Makefile
@@ -30,6 +29,8 @@ Conflicts:
 	sysdeps/posix/getaddrinfo.c
 	(RES_USE_INET6 still present in RHEL-8 and NSS module traversal rewrite
 	not in RHEL-8)
+	nss/tst-nss-gai-actions.c
+	(Adapted SUCCESS=merge result to RHEL-8)
 
 diff --git a/nss/Makefile b/nss/Makefile
 index e8a7d9c7b3cefcdf..cfb255c6e7a3a4de 100644
@@ -47,10 +48,10 @@ index e8a7d9c7b3cefcdf..cfb255c6e7a3a4de 100644
  ifeq (yes,$(build-shared))
 diff --git a/nss/tst-nss-gai-actions.c b/nss/tst-nss-gai-actions.c
 new file mode 100644
-index 0000000000000000..efca6cd1837a172a
+index 0000000000000000..c35e752896eceb2a
 --- /dev/null
 +++ b/nss/tst-nss-gai-actions.c
-@@ -0,0 +1,149 @@
+@@ -0,0 +1,156 @@
 +/* Test continue and merge NSS actions for getaddrinfo.
 +   Copyright The GNU Toolchain Authors.
 +   This file is part of the GNU C Library.
@@ -140,6 +141,13 @@ index 0000000000000000..efca6cd1837a172a
 +    case ACTION_MERGE:
 +      if (ret == 0)
 +	{
++	  if (hints.ai_flags == 0 && hints.ai_family == AF_INET)
++	    {
++	      printf ("*****      RHEL-8 limitation: "
++		      "NSS modules infrastructure incorrectly allows MERGE\n");
++	      return;
++	    }
++
 +	  char *formatted = support_format_addrinfo (ai, ret);
 +
 +	  printf ("merge unexpectedly succeeded:\n %s\n", formatted);

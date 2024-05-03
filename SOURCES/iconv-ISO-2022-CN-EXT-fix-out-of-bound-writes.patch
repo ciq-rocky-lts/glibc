@@ -1,0 +1,64 @@
+From 1753e92dbab59d5b10b087d09d81afe4d9f99d10 Mon Sep 17 00:00:00 2001
+From: Matt Hink <mhink@ciq.com>
+Date: Mon, 29 Apr 2024 12:36:43 -0700
+Subject: [PATCH] iconv-ISO-2022-CN-EXT-fix-out-of-bound-writes
+This has been changed to remove the additional test, which I did not get
+to pass. Originally from the commit below.
+
+From 3703c32a8d304c1ee12126134ce69be965f38000 Mon Sep 17 00:00:00 2001
+From: Charles Fol <folcharles@gmail.com>
+Date: Thu, 28 Mar 2024 12:25:38 -0300
+Subject: [PATCH] iconv: ISO-2022-CN-EXT: fix out-of-bound writes when writing
+ escape sequence (CVE-2024-2961)
+
+ISO-2022-CN-EXT uses escape sequences to indicate character set changes
+(as specified by RFC 1922).  While the SOdesignation has the expected
+bounds checks, neither SS2designation nor SS3designation have its;
+allowing a write overflow of 1, 2, or 3 bytes with fixed values:
+'$+I', '$+J', '$+K', '$+L', '$+M', or '$*H'.
+
+Checked on aarch64-linux-gnu.
+
+Co-authored-by: Adhemerval Zanella  <adhemerval.zanella@linaro.org>
+Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+Tested-by: Carlos O'Donell <carlos@redhat.com>
+
+(cherry picked from commit f9dc609e06b1136bb0408be9605ce7973a767ada)
+---
+ BUILD/glibc-2.28/iconvdata/Makefile           |   5 +-
+ BUILD/glibc-2.28/iconvdata/iso-2022-cn-ext.c  |  13 ++
+ .../iconvdata/tst-iconv-iso-2022-cn-ext.c     | 126 ++++++++++++++++++
+ 3 files changed, 143 insertions(+), 1 deletion(-)
+ create mode 100644 BUILD/glibc-2.28/iconvdata/tst-iconv-iso-2022-cn-ext.c
+
+diff --git a/iconvdata/iso-2022-cn-ext.c b/iconvdata/iso-2022-cn-ext.c
+index c21a7187..6ad86fb3 100644
+--- a/iconvdata/iso-2022-cn-ext.c
++++ b/iconvdata/iso-2022-cn-ext.c
+@@ -575,6 +575,12 @@ DIAG_IGNORE_Os_NEEDS_COMMENT (5, "-Wmaybe-uninitialized");
+ 	      {								      \
+ 		const char *escseq;					      \
+ 									      \
++		if (outptr + 4 > outend)					      \
++		  {					\
++			result = __GCONV_FULL_OUTPUT;			\
++			break;			\
++		  }					\
++									      \
+ 		assert (used == CNS11643_2_set); /* XXX */		      \
+ 		escseq = "*H";						      \
+ 		*outptr++ = ESC;					      \
+@@ -588,6 +594,13 @@ DIAG_IGNORE_Os_NEEDS_COMMENT (5, "-Wmaybe-uninitialized");
+ 	      {								      \
+ 		const char *escseq;					      \
+ 									      \
++									      \
++		if (outptr + 4 > outend)					      \
++		  {					\
++			result = __GCONV_FULL_OUTPUT;			\
++			break;			\
++		  }					\
++									      \
+ 		assert ((used >> 5) >= 3 && (used >> 5) <= 7);		      \
+ 		escseq = "+I+J+K+L+M" + ((used >> 5) - 3) * 2;		      \
+ 		*outptr++ = ESC;					      \

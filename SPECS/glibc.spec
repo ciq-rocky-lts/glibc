@@ -1,5 +1,6 @@
 %define glibcsrcdir glibc-2.28
 %define glibcversion 2.28
+# Note this build is really225, but somehow 236 got into production so we need this to superceed it in case a customer updated.
 %define glibcrelease 236%{?dist}
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -132,7 +133,7 @@ end \
 Summary: The GNU libc libraries
 Name: glibc
 Version: %{glibcversion}
-Release: %{glibcrelease}.12
+Release: %{glibcrelease}.13
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
 # libraries.
@@ -1031,36 +1032,19 @@ Patch838: glibc-rh2142937-3.patch
 Patch839: glibc-rh2144568.patch
 Patch840: glibc-rh2154914-1.patch
 Patch841: glibc-rh2154914-2.patch
-Patch842: glibc-rh2183081-1.patch
-Patch843: glibc-rh2183081-2.patch
-Patch844: glibc-rh2172949.patch
-Patch845: glibc-rh2180155-1.patch
-Patch846: glibc-rh2180155-2.patch
-Patch847: glibc-rh2180155-3.patch
-Patch848: glibc-rh2213909.patch
-Patch849: glibc-rh2176707-1.patch
-Patch850: glibc-rh2176707-2.patch
-Patch851: glibc-rh2186781.patch
-Patch852: glibc-rh2224348.patch
-Patch853: glibc-rh2176707-3.patch
-Patch854: glibc-rh2180462-1.patch
-Patch855: glibc-rh2180462-2.patch
-Patch856: glibc-rh2180462-3.patch
-Patch857: glibc-rh2180462-4.patch
-# (Reverted fixes for rh2233338 were here.)
-Patch864: glibc-rh2234714.patch
-Patch865: glibc-RHEL-2435.patch
-Patch866: glibc-RHEL-2435-2.patch
-Patch867: glibc-RHEL-2423.patch
-Patch868: glibc-RHEL-3036.patch
-Patch869: glibc-RHEL-21522-1.patch
-Patch870: glibc-RHEL-21522-2.patch
-Patch871: glibc-RHEL-21522-3.patch
-Patch872: glibc-RHEL-21522-4.patch
-Patch873: glibc-RHEL-21519.patch
-Patch874: glibc-RHEL-22441.patch
-Patch875: glibc-RHEL-22846.patch
-Patch876: glibc-RHEL-22847.patch
+# (Reverted fixes for rh2237433 were here.)
+Patch848: glibc-rh2234713.patch
+Patch849: glibc-RHEL-2434.patch
+Patch850: glibc-RHEL-2422.patch
+Patch851: glibc-RHEL-3035.patch
+Patch852: iconv-ISO-2022-CN-EXT-fix-out-of-bound-writes.patch
+Patch853: CVE-2024-33599.patch
+Patch854: CVE-2024-33600-nscd-Do-not-send-missing-not-found.patch
+Patch855: CVE-2024-33600-nscd-Avoid-null-pointer-crashes.patch
+# Patch below was modified to include commit 4888ffdbb39e7649a2b4bac0d226cb0d7786b196
+# From branch release/2.34/master
+# Using int may give false results for future dates (timeouts after the year 2028).
+Patch856: CVE-2024-33601-CVE-2024-33602.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2808,7 +2792,7 @@ fi
 %ifarch s390x
 /lib/ld64.so.1
 %endif
-%verify(not md5 size mtime link) %config(noreplace) /etc/nsswitch.conf
+%verify(not md5 size mtime) %config(noreplace) /etc/nsswitch.conf
 %verify(not md5 size mtime) %config(noreplace) /etc/ld.so.conf
 %verify(not md5 size mtime) %config(noreplace) /etc/rpc
 %dir /etc/ld.so.conf.d
@@ -2891,74 +2875,26 @@ fi
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
-* Mon Jan 29 2024 Florian Weimer <fweimer@redhat.com> - 2.28-236.12
-- Re-enable output buffering for wide stdio streams (RHEL-22847)
+* Fri May  3 2024 Matt Hink <mhink@ciq.com> - 2.28-225.7
+- CVE-2024-2961, CVE-2024-33599, CVE-2024-33600, CVE-2024-33601, CVE-2024-33602
 
-* Mon Jan 29 2024 Florian Weimer <fweimer@redhat.com> - 2.28-236.11
-- Avoid lazy binding failures during dlclose (RHEL-22846)
+* Wed Sep 20 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-236.6
+- CVE-2023-4911 glibc: buffer overflow in ld.so leading to privilege escalation (RHEL-3035)
 
-* Fri Jan 26 2024 Florian Weimer <fweimer@redhat.com> - 2.28-236.10
-- nscd: Skip unusable entries in first pass in prune_cache (RHEL-22441)
+* Tue Sep 19 2023 Carlos O'Donell <carlos@redhat.com> - 2.28-236.5
+- Revert: Always call destructors in reverse constructor order (#2237433)
 
-* Fri Jan 26 2024 Florian Weimer <fweimer@redhat.com> - 2.28-236.9
-- Fix force-first handling in dlclose (RHEL-21519)
+* Mon Sep 18 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-225.4
+- CVE-2023-4806: potential use-after-free in getaddrinfo (RHEL-2422)
 
-* Fri Jan 26 2024 Florian Weimer <fweimer@redhat.com> - 2.28-236.8
-- Improve compatibility between underlinking and IFUNC resolvers (RHEL-21522)
+* Fri Sep 15 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-225.3
+- CVE-2023-4813: potential use-after-free in gaih_inet (RHEL-2434)
 
-* Wed Sep 20 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-236.7
-- CVE-2023-4911 glibc: buffer overflow in ld.so leading to privilege escalation (RHEL-3036)
+* Fri Sep 15 2023 Carlos O'Donell <carlos@redhat.com> - 2.28-225.2
+- CVE-2023-4527: Stack read overflow in getaddrinfo in no-aaaa mode (#2234713)
 
-* Tue Sep 19 2023 Carlos O'Donell <carlos@redhat.com> - 2.28-236.6
-- Revert: Always call destructors in reverse constructor order (#2233338)
-
-* Tue Sep 19 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-236.5
-- CVE-2023-4806 glibc: potential use-after-free in getaddrinfo (RHEL-2423)
-
-* Tue Sep 19 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-236.4
-- CVE-2023-4813: Work around RHEL-8 limitation in test (RHEL-2435)
-
-* Fri Sep 15 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.28-236.3
-- CVE-2023-4813: potential use-after-free in gaih_inet (RHEL-2435)
-
-* Wed Sep 13 2023 Florian Weimer <fweimer@redhat.com> - 2.28-236.2
-- CVE-2023-4527: Stack read overflow in getaddrinfo in no-aaaa mode (#2234714)
-
-* Mon Sep 11 2023 Florian Weimer <fweimer@redhat.com> - 2.28-236.1
-- Always call destructors in reverse constructor order (#2233338)
-
-* Tue Aug 15 2023 Carlos O'Donell <carlos@redhat.com> - 2.28-236
-- Fix string and memory function tuning on small systems (#2180462)
-
-* Tue Aug  8 2023 DJ Delorie <dj@redhat.com> - 2.28-235
-- Fix temporal threshold calculations (#2180462)
-
-* Mon Aug  7 2023 Florian Weimer <fweimer@redhat.com> - 2.28-234
-- Ignore symbolic link change on /etc/nsswitch.conf (#2229709)
-
-* Wed Jul 26 2023 DJ Delorie <dj@redhat.com> - 2.28-233
-- Update test to closer match upstream. (#2176707)
-
-* Fri Jul 21 2023 Florian Weimer <fweimer@redhat.com> - 2.28-232
-- Make libSegFault.so NODELETE (#2224348)
-
-* Sun Jul  9 2023 Carlos O'Donell <carlos@redhat.com> - 2.28-231
-- Update ESTALE error message translations (#2186781)
-
-* Fri Jul 7 2023 DJ Delorie <dj@redhat.com> - 2.28-230
-- Don't block SIGCHILD when system() is called concurrently (#2176707)
-
-* Mon Jul 3 2023 DJ Delorie <dj@redhat.com> - 2.28-229
-- resolv_conf: release lock on allocation failure (#2213909)
-
-* Mon May 22 2023 Florian Weimer <fweimer@redhat.com> - 2.28-228
-- gmon: Various bug fixes (#2180155)
-
-* Thu May 18 2023 Patsy Griffin <patsy@redhat.com> - 2.28-227
-- Change sgetsgent_r to set errno. (#2172949)
-
-* Wed May  3 2023 Florian Weimer <fweimer@redhat.com> - 2.28-226
-- Fix incorrect inline feraiseexcept on i686, x86-64 (#2183081)
+* Tue Sep 12 2023 Florian Weimer <fweimer@redhat.com> - 2.28-225.1
+- Always call destructors in reverse constructor order (#2237433)
 
 * Fri Jan 20 2023 Florian Weimer <fweimer@redhat.com> - 2.28-225
 - Enforce a specififc internal ordering for tunables (#2154914)
