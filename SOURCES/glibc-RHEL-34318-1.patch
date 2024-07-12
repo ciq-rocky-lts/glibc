@@ -1,20 +1,16 @@
-From 52f73e5c4e29b14e79167272297977f360ae1e97 Mon Sep 17 00:00:00 2001
-From: Florian Weimer <fweimer@redhat.com>
-Date: Thu, 25 Apr 2024 15:00:45 +0200
-Subject: [PATCH] CVE-2024-33599: nscd: Stack-based buffer overflow in netgroup
- cache (bug 31677)
+commit 87801a8fd06db1d654eea3e4f7626ff476a9bdaa
+Author: Florian Weimer <fweimer@redhat.com>
+Date:   Thu Apr 25 15:00:45 2024 +0200
 
-Using alloca matches what other caches do.  The request length is
-bounded by MAXKEYLEN.
-
-Reviewed-by: Carlos O'Donell <carlos@redhat.com>
-(cherry picked from commit 87801a8fd06db1d654eea3e4f7626ff476a9bdaa)
----
- nscd/netgroupcache.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+    CVE-2024-33599: nscd: Stack-based buffer overflow in netgroup cache (bug 31677)
+    
+    Using alloca matches what other caches do.  The request length is
+    bounded by MAXKEYLEN.
+    
+    Reviewed-by: Carlos O'Donell <carlos@redhat.com>
 
 diff --git a/nscd/netgroupcache.c b/nscd/netgroupcache.c
-index 2f71bf2999..f13a11b4c4 100644
+index 2f71bf2999dad56b..f13a11b4c4fe3d99 100644
 --- a/nscd/netgroupcache.c
 +++ b/nscd/netgroupcache.c
 @@ -503,12 +503,13 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
@@ -33,6 +29,3 @@ index 2f71bf2999..f13a11b4c4 100644
      }
  
    datahead_init_pos (&dataset->head, sizeof (*dataset) + req->key_len,
--- 
-2.39.3
-

@@ -1,21 +1,16 @@
-commit 51948fdf0fc0258feca719f6a88cbdcf82f2eafc
+commit e2f68b54e8052da14680074fc5df03153216f218
 Author: Siddhesh Poyarekar <siddhesh@sourceware.org>
 Date:   Thu Mar 17 11:16:57 2022 +0530
 
     nss: Sort tests and tests-container and put one test per line
     
     Signed-off-by: Siddhesh Poyarekar <siddhesh@sourceware.org>
-    (cherry picked from commit e2f68b54e8052da14680074fc5df03153216f218)
-
-Conflicts:
-	nss/Makefile
-	(reordered tests)
 
 diff --git a/nss/Makefile b/nss/Makefile
-index beb30ac2667fe998..5192db6097457f88 100644
+index 716bc8f6ef5276b0..aa6d350f2f859d12 100644
 --- a/nss/Makefile
 +++ b/nss/Makefile
-@@ -56,22 +56,31 @@ extra-objs		+= $(makedb-modules:=.o)
+@@ -56,21 +56,30 @@ extra-objs		+= $(makedb-modules:=.o)
  
  tests-static            = tst-field
  tests-internal		= tst-field
@@ -33,7 +28,6 @@ index beb30ac2667fe998..5192db6097457f88 100644
 -			  tst-nss-files-hosts-long \
 -			  tst-nss-db-endpwent \
 -			  tst-nss-db-endgrent \
--			  tst-nss-gai-actions \
 -			  tst-reload1 tst-reload2
 +
 +tests := \
@@ -55,7 +49,6 @@ index beb30ac2667fe998..5192db6097457f88 100644
 +  tst-nss-db-endgrent \
 +  tst-nss-db-endpwent \
 +  tst-nss-files-hosts-long \
-+  tst-nss-gai-actions \
 +  tst-nss-test3 \
 +  tst-reload1 \
 +  tst-reload2 \

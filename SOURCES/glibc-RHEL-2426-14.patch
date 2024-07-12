@@ -18,10 +18,10 @@ Conflicts:
 	  (different test backport order)
 
 diff --git a/nss/Makefile b/nss/Makefile
-index 18a27d79d26f094a..648adf4bb7b1ee6a 100644
+index 64b29745131d3cf5..9af46fb3a8195809 100644
 --- a/nss/Makefile
 +++ b/nss/Makefile
-@@ -214,3 +214,13 @@ endif
+@@ -215,3 +215,13 @@ endif
  
  $(objpfx)tst-nss-files-alias-leak.out: $(objpfx)/libnss_files.so
  $(objpfx)tst-nss-files-alias-truncated.out: $(objpfx)/libnss_files.so

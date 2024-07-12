@@ -155,7 +155,7 @@ end \
 Summary: The GNU libc libraries
 Name: glibc
 Version: %{glibcversion}
-Release: 60%{?dist}.8
+Release: 100%{?dist}.2
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
 # libraries.
@@ -195,6 +195,7 @@ Source10: wrap-find-debuginfo.sh
 Source11: parse-SUPPORTED.py
 # Include in the source RPM for reference.
 Source12: ChangeLog.old
+Source13: nscd-sysusers.conf
 
 ######################################################################
 # Activate the wrapper script for debuginfo generation, by rewriting
@@ -700,31 +701,118 @@ Patch468: glibc-upstream-2.34-386.patch
 # glibc-upstream-2.34-387.patch is a NEWS-only update.  Skipped downstream.
 Patch469: glibc-upstream-2.34-388.patch
 Patch470: glibc-upstream-2.34-389.patch
-# (Reverted fixes for RHEL-3385 were here.)
-Patch476: glibc-rh2234715.patch
-Patch477: glibc-RHEL-2437.patch
-Patch478: glibc-RHEL-2425-1.patch
-Patch479: glibc-RHEL-2425-2.patch
-Patch480: glibc-RHEL-2425-3.patch
-Patch481: glibc-RHEL-2425-4.patch
-Patch482: glibc-RHEL-2425-5.patch
-Patch483: glibc-RHEL-2425-6.patch
-Patch484: glibc-RHEL-2425-7.patch
-Patch485: glibc-RHEL-2425-8.patch
-Patch486: glibc-RHEL-2425-9.patch
-Patch487: glibc-RHEL-2425-10.patch
-Patch488: glibc-RHEL-2425-11.patch
-Patch489: glibc-RHEL-2425-12.patch
-Patch490: glibc-RHEL-2425-13.patch
-Patch491: glibc-RHEL-2425-14.patch
-Patch492: glibc-RHEL-2999.patch
-Patch493: glibc-RHEL-2425-15.patch
-Patch494: glibc-RHEL-2425-16.patch
-Patch495: iconv-ISO-2022-CN-EXT-fix-out-of-bound-writes.patch
-Patch496: CVE-2024-33599.patch
-Patch497: CVE-2024-33600-nscd-Do-not-send-missing-not-found.patch
-Patch498: CVE-2024-33600-nscd-Avoid-null-pointer-crashes.patch
-Patch499: CVE-2024-33601-CVE-2024-33602.patch
+Patch471: glibc-rh2172953.patch
+Patch472: glibc-rh2149615-1.patch
+Patch473: glibc-rh2149615-2.patch
+Patch474: glibc-rh2169978-1.patch
+Patch475: glibc-rh2169978-2.patch
+Patch476: glibc-rh2149615-3.patch
+Patch477: glibc-rh2166710.patch
+# glibc-upstream-2.34-390.patch backported above as glibc-rh2172953.patch.
+Patch478: glibc-upstream-2.34-391.patch
+Patch479: glibc-upstream-2.34-392.patch
+Patch480: glibc-upstream-2.34-393.patch
+Patch481: glibc-upstream-2.34-394.patch
+Patch482: glibc-upstream-2.34-395.patch
+Patch483: glibc-upstream-2.34-396.patch
+Patch484: glibc-upstream-2.34-397.patch
+# glibc-upstream-2.34-398.patch not backported because we can avoid the
+# ABI tunable issue downstream, using @order directives.
+
+# This marks the end of backports via upstream release/2.34/master.
+# All future backports need maintain CentOS 9 Stream and RHEL 9 only.
+
+Patch485: glibc-rh2215368.patch
+Patch486: glibc-rh2213908.patch
+Patch487: glibc-rh2189923.patch
+Patch488: glibc-RHEL-729.patch
+Patch489: glibc-rh2222188-1.patch
+Patch490: glibc-rh2222188-2.patch
+Patch491: glibc-rh2222188-3.patch
+Patch492: glibc-rh2222188-4.patch
+Patch493: glibc-rh2222188-5.patch
+Patch494: glibc-rh2224289-1.patch
+Patch495: glibc-rh2224289-2.patch
+Patch496: glibc-rh2224349.patch
+Patch497: glibc-rh2224289-3.patch
+Patch498: glibc-rh2224504-1.patch
+Patch499: glibc-rh2224504-2.patch
+Patch500: glibc-rh2213907-1.patch
+Patch501: glibc-rh2213907-2.patch
+Patch502: glibc-rh2213907-3.patch
+Patch503: glibc-rh2213907-4.patch
+Patch504: glibc-rh2213907-5.patch
+Patch505: glibc-rh2213907-6.patch
+Patch506: glibc-rh2166710-2.patch
+Patch507: glibc-rh2166710-3.patch
+Patch508: glibc-rh2222188-6.patch
+Patch509: glibc-rh2213907-7.patch
+Patch510: glibc-RHEL-1017-1.patch
+Patch511: glibc-RHEL-1017-2.patch
+Patch512: glibc-RHEL-1017-3.patch
+Patch513: glibc-RHEL-1017-4.patch
+# (Reverted fixes for RHEL-2491 were here.)
+Patch519: glibc-rh2234716.patch
+Patch520: glibc-RHEL-2438.patch
+Patch521: glibc-RHEL-2426-1.patch
+Patch522: glibc-RHEL-2426-2.patch
+Patch523: glibc-RHEL-2426-3.patch
+Patch524: glibc-RHEL-2426-4.patch
+Patch525: glibc-RHEL-2426-5.patch
+Patch526: glibc-RHEL-2426-6.patch
+Patch527: glibc-RHEL-2426-7.patch
+Patch528: glibc-RHEL-2426-8.patch
+Patch529: glibc-RHEL-2426-9.patch
+Patch530: glibc-RHEL-2426-10.patch
+Patch531: glibc-RHEL-2426-11.patch
+Patch532: glibc-RHEL-2426-12.patch
+Patch533: glibc-RHEL-2426-13.patch
+Patch534: glibc-RHEL-3000.patch
+Patch535: glibc-RHEL-2426-14.patch
+Patch536: glibc-RHEL-2426-15.patch
+Patch537: glibc-RHEL-1191.patch
+Patch538: glibc-RHEL-3397.patch
+Patch539: glibc-RHEL-2123.patch
+Patch540: glibc-RHEL-16275.patch
+Patch541: glibc-RHEL-2491.patch
+Patch542: glibc-RHEL-14383-1.patch
+Patch543: glibc-RHEL-14383-2.patch
+Patch544: glibc-RHEL-2338-1.patch
+Patch545: glibc-RHEL-2338-2.patch
+Patch546: glibc-RHEL-2338-3.patch
+Patch547: glibc-RHEL-2338-4.patch
+Patch548: glibc-RHEL-15343-1.patch
+Patch549: glibc-RHEL-15343-2.patch
+Patch550: glibc-RHEL-15343-3.patch
+Patch551: glibc-RHEL-15343-4.patch
+Patch552: glibc-rhel-17157.patch
+Patch553: glibc-RHEL-16016-1.patch
+Patch554: glibc-RHEL-16016-2.patch
+Patch555: glibc-RHEL-16016-3.patch
+Patch556: glibc-RHEL-16016-4.patch
+Patch557: glibc-RHEL-16016-5.patch
+Patch558: glibc-RHEL-16016-6.patch
+Patch559: glibc-RHEL-16016-7.patch
+Patch560: glibc-RHEL-17319-1.patch
+Patch561: glibc-RHEL-17319-2.patch
+Patch562: glibc-RHEL-17319-3.patch
+Patch563: glibc-RHEL-17319-4.patch
+Patch564: glibc-RHEL-17465-1.patch
+Patch565: glibc-RHEL-17465-2.patch
+Patch566: glibc-RHEL-19862.patch
+Patch567: glibc-RHEL-16643-1.patch
+Patch568: glibc-RHEL-16643-2.patch
+Patch569: glibc-RHEL-16643-3.patch
+Patch570: glibc-RHEL-16643-4.patch
+Patch571: glibc-RHEL-16643-5.patch
+Patch572: glibc-RHEL-16643-6.patch
+Patch573: glibc-RHEL-19444.patch
+Patch574: glibc-RHEL-21556.patch
+Patch575: glibc-RHEL-32480.patch
+Patch576: glibc-RHEL-34318-1.patch
+Patch577: glibc-RHEL-34318-2.patch
+Patch578: glibc-RHEL-34318-3.patch
+Patch579: glibc-RHEL-34318-4.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -781,7 +869,7 @@ BuildRequires: valgrind
 %endif
 
 # We use systemd rpm macros for nscd
-BuildRequires: systemd
+BuildRequires: systemd systemd-rpm-macros
 
 # We use python for the microbenchmarks and locale data regeneration
 # from unicode sources (carried out manually). We choose python3
@@ -1424,10 +1512,10 @@ Requires: %{name} = %{version}-%{release}
 Requires: libselinux >= 1.17.10-1
 %endif
 Requires: audit-libs >= 1.1.3
-Requires(pre): /usr/sbin/useradd, coreutils
+Requires(pre): systemd, coreutils
 Requires(post): systemd
 Requires(preun): systemd
-Requires(postun): systemd, /usr/sbin/userdel
+Requires(postun): systemd
 
 %description -n nscd
 The nscd daemon caches name service lookups and can improve
@@ -1840,6 +1928,8 @@ install_different "$RPM_BUILD_ROOT/%{_libdir}/glibc-hwcaps" power10 ..
 popd
 %endif
 
+install -p -D -m 0644 %{SOURCE13} ${RPM_BUILD_ROOT}%{_sysusersdir}/nscd.conf
+
 ##############################################################################
 # Remove the files we don't want to distribute
 ##############################################################################
@@ -1890,6 +1980,7 @@ gzip -9nvf %{glibc_sysroot}%{_infodir}/libc*
 # Copy the debugger interface documentation over to the right location
 mkdir -p %{glibc_sysroot}%{_docdir}/glibc
 cp elf/rtld-debugger-interface.txt %{glibc_sysroot}%{_docdir}/glibc
+cp posix/gai.conf %{glibc_sysroot}%{_docdir}/glibc
 %else
 rm -f %{glibc_sysroot}%{_infodir}/dir
 rm -f %{glibc_sysroot}%{_infodir}/libc.info*
@@ -2106,8 +2197,8 @@ done
 find -type f | xargs chmod a-x
 
 # Use sysroot-relative paths in linker script.  Ignore symbolic links.
-sed -e 's,\([^0-9a-zA-Z=*]/lib\),=/usr/lib,g' \
-    -e 's,\([^0-9a-zA-Z=*]\)/,\1=/,g' \
+sed -e 's,\([^0-9a-zA-Z=*]/lib\),/usr/lib,g' \
+    -e 's,\([^0-9a-zA-Z=*]\)/,\1/,g' \
     -i $(find -type f -name 'lib[cm].so')
 
 popd
@@ -2771,10 +2862,8 @@ update_gconv_modules_cache ()
 update_gconv_modules_cache ()
 
 %pre -n nscd
-getent group nscd >/dev/null || /usr/sbin/groupadd -g 28 -r nscd
-getent passwd nscd >/dev/null ||
-  /usr/sbin/useradd -M -o -r -d / -s /sbin/nologin \
-		    -c "NSCD Daemon" -u 28 -g nscd nscd
+# install user nscd(28) and group nscd(28)
+%sysusers_create_compat %{SOURCE13}
 
 %post -n nscd
 %systemd_post nscd.service
@@ -2783,9 +2872,6 @@ getent passwd nscd >/dev/null ||
 %systemd_preun nscd.service
 
 %postun -n nscd
-if test $1 = 0; then
-  /usr/sbin/userdel nscd > /dev/null 2>&1 || :
-fi
 %systemd_postun_with_restart nscd.service
 
 %files -f glibc.filelist
@@ -2793,7 +2879,7 @@ fi
 %if %{buildpower10}
 %dir /%{_libdir}/glibc-hwcaps/power10
 %endif
-%verify(not md5 size mtime) %config(noreplace) /etc/nsswitch.conf
+%verify(not md5 size mtime link) %config(noreplace) /etc/nsswitch.conf
 %verify(not md5 size mtime) %config(noreplace) /etc/ld.so.conf
 %verify(not md5 size mtime) %config(noreplace) /etc/rpc
 %dir /etc/ld.so.conf.d
@@ -2862,6 +2948,7 @@ fi
 %attr(0600,root,root) %verify(not md5 size mtime) %ghost %config(missingok,noreplace) /var/db/nscd/hosts
 %attr(0600,root,root) %verify(not md5 size mtime) %ghost %config(missingok,noreplace) /var/db/nscd/services
 %ghost %config(missingok,noreplace) /etc/sysconfig/nscd
+%{_sysusersdir}/nscd.conf
 
 %files -f nss_db.filelist -n nss_db
 /var/db/Makefile
@@ -2884,29 +2971,164 @@ fi
 %endif
 
 %changelog
-* Fri Apr 26 2024 Matt Hink <mhink@ciq.com> - 2.34-60.8
-- iconv patch, CVE-2024-33599, CVE-2024-33600, CVE-2024-33601, CVE-2024-33602
+* Mon Apr 29 2024 Florian Weimer <fweimer@redhat.com> - 2.34-100.2
+- CVE-2024-33599: nscd: buffer overflow in netgroup cache (RHEL-34318)
+- CVE-2024-33600: nscd: null pointer dereferences in netgroup cache
+- CVE-2024-33601: nscd: crash on out-of-memory condition
+- CVE-2024-33602: nscd: memory corruption with NSS netgroup modules
 
-* Mon Sep 25 2023 Florian Weimer <fweimer@redhat.com> - 2.34-60.7
-- Fix memory leak regression in getaddrinfo (RHEL-2425)
+* Tue Apr 16 2024 Florian Weimer <fweimer@redhat.com> - 2.34-100.1
+- CVE-2024-2961: Out of bounds write in iconv conversion to ISO-2022-CN-EXT (RHEL-32480)
 
-* Tue Sep 19 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-60.6
-- CVE-2023-4911 glibc: buffer overflow in ld.so leading to privilege escalation (RHEL-2999)
+* Wed Jan 24 2024 Patsy Griffin <patsy@redhat.com> - 2.34-100
+- manual: fix order of arguments of memalign and aligned_alloc (RHEL-21556)
 
-* Tue Sep 19 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-60.5
-- Revert: Always call destructors in reverse constructor order (RHEL-3385)
+* Tue Jan 09 2024 Arjun Shankar <arjun@redhat.com> - 2.34-99
+- getaddrinfo: Return correct error EAI_MEMORY when out-of-memory (RHEL-19444)
 
-* Mon Sep 18 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.34-60.4
-- CVE-2023-4806 glibc: potential use-after-free in getaddrinfo (RHEL-2425)
+* Mon Jan  8 2024 Arjun Shankar <arjun@redhat.com> - 2.34-98
+- getaddrinfo: Fix occasionally empty result due to nscd cache order (RHEL-16643)
 
-* Fri Sep 15 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.34-60.3
-- CVE-2023-4813: potential use-after-free in gaih_inet (RHEL-2437)
+* Tue Jan  2 2024 Florian Weimer <fweimer@redhat.com> - 2.34-97
+- Re-enable output buffering for wide stdio streams (RHEL-19862)
 
-* Fri Sep 15 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-60.2
-- CVE-2023-4527: Stack read overflow in getaddrinfo in no-aaaa mode (#2234715)
+* Thu Dec 21 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-96
+- Fix TLS corruption during dlopen()/dlclose() sequences (RHEL-17465)
 
-* Wed Sep 13 2023 Florian Weimer <fweimer@redhat.com> - 2.34-60.1
-- Always call destructors in reverse constructor order (RHEL-3385)
+* Fri Dec  8 2023 Florian Weimer <fweimer@redhat.com> - 2.34-95
+- Improve compatibility between underlinking and IFUNC resolvers (RHEL-17319)
+
+* Thu Dec  7 2023 Patsy Griffin <patsy@redhat.com> - 2.34-94
+- Update syscall-names.list for Linux 6.6. (RHEL-16016)
+
+* Wed Dec  6 2023 Patsy Griffin <patsy@redhat.com> - 2.34-93
+- malloc: Use __get_nprocs on arena_get2. (RHEL-17157)
+
+* Fri Dec  1 2023 Patsy Griffin <patsy@redhat.com> - 2.34-92
+- Improve test coverage for wcsdup, strdup and strndup. (RHEL-15343)
+
+* Fri Nov 24 2023 Florian Weimer <fweimer@redhat.com> - 2.34-91
+- fstat performance enhancement (RHEL-2338)
+
+* Tue Nov 21 2023 Florian Weimer <fweimer@redhat.com> - 2.34-90
+- ldconfig should skip temporary files created by RPM (RHEL-14383)
+
+* Mon Nov 20 2023 Florian Weimer <fweimer@redhat.com> - 2.34-89
+- Fix force-first handling in dlclose (RHEL-2491)
+
+* Wed Nov 15 2023 Arjun Shankar <arjun@redhat.com> - 2.34-88
+- nscd: Refer to /run instead of /var/run in systemd socket file
+  (RHEL-16275)
+
+* Fri Nov 10 2023 Florian Weimer <fweimer@redhat.com> - 2.34-87
+- Fix slow tls access after dlopen (RHEL-2123)
+
+* Tue Oct 24 2023 Arjun Shankar <arjun@redhat.com> - 2.34-86
+- Add /usr/share/doc/glibc/gai.conf to glibc-doc (RHEL-14545)
+
+* Fri Oct 20 2023 Florian Weimer <fweimer@redhat.com> - 2.34-85
+- nscd: Skip unusable entries in first pass in prune_cache (RHEL-3397)
+
+* Mon Oct  9 2023 Florian Weimer <fweimer@redhat.com> - 2.34-84
+- x86-64: Report non-zero cache sizes under TDX hypervisors (RHEL-1191)
+
+* Mon Sep 25 2023 Florian Weimer <fweimer@redhat.com> - 2.34-83.7
+- Fix memory leak regression in getaddrinfo (RHEL-2426)
+
+* Tue Sep 19 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-83.6
+- CVE-2023-4911 glibc: buffer overflow in ld.so leading to privilege escalation (RHEL-3000)
+
+* Tue Sep 19 2023 Florian Weimer <fweimer@redhat.com> - 2.34-83.5
+- Revert: Always call destructors in reverse constructor order (RHEL-2491)
+
+* Mon Sep 18 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.34-83.4
+- CVE-2023-4806 glibc: potential use-after-free in getaddrinfo (RHEL-2426)
+
+* Fri Sep 15 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.34-83.3
+- CVE-2023-4813: potential use-after-free in gaih_inet (RHEL-2438)
+
+* Fri Sep 15 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-83.2
+- CVE-2023-4527: Stack read overflow in getaddrinfo in no-aaaa mode (#2234716)
+
+* Thu Sep 14 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-83.1
+- Always call destructors in reverse constructor order (RHEL-2491)
+
+* Wed Sep 13 2023 DJ Delorie <dj@redhat.com> - 2.34-83
+- Add support for ppc64le hwcaps tunables (RHEL-1017)
+
+* Tue Aug 15 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-82
+- Fix string and memory function tuning on small systems (#2213907) 
+
+* Mon Aug 14 2023 Florian Weimer <fweimer@redhat.com> - 2.34-81
+- Fix additional GCC 13 build issue (#2222188)
+
+* Fri Aug 11 2023 Florian Weimer <fweimer@redhat.com> - 2.34-80
+- Fix AMD cache size computation for hypervisors, old CPUs (#2166710)
+
+* Tue Aug  8 2023 DJ Delorie <dj@redhat.com> - 2.34-79
+- Fix temporal threshold calculations (#2213907)
+
+* Fri Aug  4 2023 Florian Weimer <fweimer@redhat.com> - 2.34-78
+- Ignore symbolic link change on /etc/nsswitch.conf (#2229156)
+
+* Fri Jul 28 2023 Florian Weimer <fweimer@redhat.com> - 2.34-77
+- Fix regression with IPv4 mapped addresses in /etc/hosts (#2224504)
+
+* Tue Jul 25 2023 Florian Weimer <fweimer@redhat.com> - 2.34-76
+- Fix accidentally disabled rseq test (#2224289)
+
+* Fri Jul 21 2023 Florian Weimer <fweimer@redhat.com> - 2.34-75
+- Make libSegFault.so NODELETE (#2224349)
+
+* Fri Jul 21 2023 Florian Weimer <fweimer@redhat.com> - 2.34-74
+- rseq_area should always be 32 bytes large (#2224289)
+
+* Thu Jul 20 2023 Florian Weimer <fweimer@redhat.com> - 2.34-73
+- GCC Toolset 13 C++ compatibility for <math.h> iseqsig (#2222188)
+
+* Fri Jul 07 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-72
+- Update ESTALE error message translations (RHEL-729)
+
+* Fri Jul 07 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-71
+- Avoid lazy binding failures during dlclose (#2189923)
+
+* Mon Jun 26 2023 Arjun Shankar <arjun@redhat.com> - 2.34-70
+- resolv_conf: release lock on allocation failure (#2213908)
+
+* Mon Jun 26 2023 Arjun Shankar <arjun@redhat.com> - 2.34-69
+- strerror must not return NULL (#2215368)
+
+* Mon May 08 2023 DJ Delorie <dj@redhat.com> - 2.34-68
+- Switch to sysusers_ctl instead of useradd (#2095417)
+
+* Fri Apr 28 2023 Florian Weimer <fweimer@redhat.com> - 2.34-67
+- Sync with upstream branch release/2.34/master,
+  commit 0ea8174d62263c2679c95c0d215d2627e560f7aa:
+- gmon: fix memory corruption issues [BZ# 30101]
+- gmon: improve mcount overflow handling [BZ# 27576]
+- gmon: Fix allocated buffer overflow (bug 29444)
+- posix: Fix system blocks SIGCHLD erroneously [BZ #30163]
+- x86_64: Fix asm constraints in feraiseexcept (bug 30305)
+- gshadow: Matching sgetsgent, sgetsgent_r ERANGE handling (bug 30151)
+- x86: Check minimum/maximum of non_temporal_threshold [BZ #29953]
+
+* Thu Apr 20 2023 Patsy Griffin <patsy@redhat.com> - 2.34-66
+- x86: Cache computation for AMD architecture. (#2166710)
+
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 2.34-65
+- Do not add = to linker scripts in sysroot (#2153855)
+
+* Thu Apr 06 2023 DJ Delorie <dj@redhat.com> - 2.34-64
+- x86: Use CHECK_FEATURE_PRESENT on PCONFIG (#2149615)
+
+* Thu Mar 30 2023 Arjun Shankar <arjun@redhat.com> - 2.34-63
+- s390x: Influence hwcaps/stfle via glibc.cpu.hwcaps tunable (#2169978)
+
+* Wed Mar 29 2023 DJ Delorie <dj@redhat.com> - 2.34-62
+- x86: Don't check PREFETCHWT1 in tst-cpu-features-cpuinfo.c (#2149615)
+
+* Mon Mar  6 2023 Carlos O'Donell <carlos@redhat.com> - 2.34-61
+- Fix nested atexit calls from atexit handlers (#2172953)
 
 * Wed Feb  8 2023 Florian Weimer <fweimer@redhat.com> - 2.34-60
 - Upstream test for ldconfig -p (#2167811)

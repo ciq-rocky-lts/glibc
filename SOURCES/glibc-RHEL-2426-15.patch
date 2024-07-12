@@ -9,10 +9,10 @@ Date:   Mon Sep 25 01:21:51 2023 +0100
     Reviewed-by: Siddhesh Poyarekar <siddhesh@sourceware.org>
 
 diff --git a/nss/Makefile b/nss/Makefile
-index 648adf4bb7b1ee6a..bfdb0fd5a9a90873 100644
+index 9af46fb3a8195809..62a68880198c243c 100644
 --- a/nss/Makefile
 +++ b/nss/Makefile
-@@ -147,6 +147,15 @@ endif
+@@ -148,6 +148,15 @@ endif
  extra-test-objs		+= nss_test1.os nss_test2.os nss_test_errno.os \
  			   nss_test_gai_hv2_canonname.os
  
@@ -28,7 +28,7 @@ index 648adf4bb7b1ee6a..bfdb0fd5a9a90873 100644
  include ../Rules
  
  ifeq (yes,$(have-selinux))
-@@ -215,6 +224,17 @@ endif
+@@ -216,6 +225,17 @@ endif
  $(objpfx)tst-nss-files-alias-leak.out: $(objpfx)/libnss_files.so
  $(objpfx)tst-nss-files-alias-truncated.out: $(objpfx)/libnss_files.so
  

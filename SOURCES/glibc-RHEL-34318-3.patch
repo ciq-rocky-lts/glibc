@@ -1,28 +1,24 @@
-From 1f94122289a9bf7dba573f5d60327aaa2b85cf2e Mon Sep 17 00:00:00 2001
-From: Florian Weimer <fweimer@redhat.com>
-Date: Thu, 25 Apr 2024 15:01:07 +0200
-Subject: [PATCH] CVE-2024-33600: nscd: Avoid null pointer crashes after
- notfound response (bug 31678)
+commit b048a482f088e53144d26a61c390bed0210f49f2
+Author: Florian Weimer <fweimer@redhat.com>
+Date:   Thu Apr 25 15:01:07 2024 +0200
 
-The addgetnetgrentX call in addinnetgrX may have failed to produce
-a result, so the result variable in addinnetgrX can be NULL.
-Use db->negtimeout as the fallback value if there is no result data;
-the timeout is also overwritten below.
-
-Also avoid sending a second not-found response.  (The client
-disconnects after receiving the first response, so the data stream did
-not go out of sync even without this fix.)  It is still beneficial to
-add the negative response to the mapping, so that the client can get
-it from there in the future, instead of going through the socket.
-
-Reviewed-by: Siddhesh Poyarekar <siddhesh@sourceware.org>
-(cherry picked from commit b048a482f088e53144d26a61c390bed0210f49f2)
----
- nscd/netgroupcache.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+    CVE-2024-33600: nscd: Avoid null pointer crashes after notfound response (bug 31678)
+    
+    The addgetnetgrentX call in addinnetgrX may have failed to produce
+    a result, so the result variable in addinnetgrX can be NULL.
+    Use db->negtimeout as the fallback value if there is no result data;
+    the timeout is also overwritten below.
+    
+    Also avoid sending a second not-found response.  (The client
+    disconnects after receiving the first response, so the data stream did
+    not go out of sync even without this fix.)  It is still beneficial to
+    add the negative response to the mapping, so that the client can get
+    it from there in the future, instead of going through the socket.
+    
+    Reviewed-by: Siddhesh Poyarekar <siddhesh@sourceware.org>
 
 diff --git a/nscd/netgroupcache.c b/nscd/netgroupcache.c
-index 08668e96a9..5ed16f871c 100644
+index 08668e96a9fd2c77..5ed16f871c433531 100644
 --- a/nscd/netgroupcache.c
 +++ b/nscd/netgroupcache.c
 @@ -512,14 +512,15 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
@@ -55,6 +51,3 @@ index 08668e96a9..5ed16f871c 100644
      {
        /* We write the dataset before inserting it to the database
  	 since while inserting this thread might block and so would
--- 
-2.39.3
-
