@@ -1,0 +1,61 @@
+Partial backport of the following commit, restricted to the
+netgroup changes:
+
+commit c6dfed243e0310bc3294c0fdf1816fceab024e9b
+Author: Roland McGrath <roland@hack.frob.com>
+Date:   Wed Oct 22 13:17:20 2014 -0700
+
+    Rework some nscd code not to use variable-length struct types.
+
+diff --git a/inet/netgroup.h b/inet/netgroup.h
+index f3797a698d126157..fa1732762e32c2c0 100644
+--- a/inet/netgroup.h
++++ b/inet/netgroup.h
+@@ -26,7 +26,7 @@
+ struct name_list
+ {
+   struct name_list *next;
+-  char name[0];
++  char name[];
+ };
+ 
+ 
+diff --git a/nscd/netgroupcache.c b/nscd/netgroupcache.c
+index 7ee0c284ed58d1e3..7d7269a8edf1b99d 100644
+--- a/nscd/netgroupcache.c
++++ b/nscd/netgroupcache.c
+@@ -21,6 +21,7 @@
+ #include <errno.h>
+ #include <libintl.h>
+ #include <stdbool.h>
++#include <stdlib.h>
+ #include <unistd.h>
+ #include <sys/mman.h>
+ 
+@@ -136,11 +137,8 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+   char *buffer = NULL;
+   size_t nentries = 0;
+   size_t group_len = strlen (key) + 1;
+-  union
+-  {
+-    struct name_list elem;
+-    char mem[sizeof (struct name_list) + group_len];
+-  } first_needed;
++  struct name_list *first_needed
++    = alloca (sizeof (struct name_list) + group_len);
+ 
+   if (netgroup_database == NULL
+       && __nss_database_lookup ("netgroup", NULL, NULL, &netgroup_database))
+@@ -153,9 +151,9 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+ 
+   memset (&data, '\0', sizeof (data));
+   buffer = xmalloc (buflen);
+-  first_needed.elem.next = &first_needed.elem;
+-  memcpy (first_needed.elem.name, key, group_len);
+-  data.needed_groups = &first_needed.elem;
++  first_needed->next = first_needed;
++  memcpy (first_needed->name, key, group_len);
++  data.needed_groups = first_needed;
+ 
+   while (data.needed_groups != NULL)
+     {

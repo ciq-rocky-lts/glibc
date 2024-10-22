@@ -1,0 +1,134 @@
+Partial backport of the sendfile removal.  This backport only
+updates nscd/netgroupcache.c, to avoid future conflicts.
+
+commit 8c78faa9ef5c6cae455739f162e4b9d690e32eca
+Author: Adhemerval Zanella <adhemerval.zanella@linaro.org>
+Date:   Wed May 16 10:51:15 2018 -0300
+
+    Fix concurrent changes on nscd aware files (BZ #23178)
+    
+    As indicated by BZ#23178, concurrent access on some files read by nscd
+    may result non expected data send through service requisition.  This is
+    due 'sendfile' Linux implementation where for sockets with zero-copy
+    support, callers must ensure the transferred portions of the the file
+    reffered by input file descriptor remain unmodified until the reader
+    on the other end of socket has consumed the transferred data.
+    
+    I could not find any explicit documentation stating this behaviour on
+    Linux kernel documentation.  However man-pages sendfile entry [1] states
+    in NOTES the aforementioned remark.  It was initially pushed on man-pages
+    with an explicit testcase [2] that shows changing the file used in
+    'sendfile' call prior the socket input data consumption results in
+    previous data being lost.
+    
+    From commit message it stated on tested Linux version (3.15) only TCP
+    socket showed this issues, however on recent kernels (4.4) I noticed the
+    same behaviour for local sockets as well.
+    
+    Since sendfile on HURD is a read/write operation and the underlying
+    issue on Linux, the straightforward fix is just remove sendfile use
+    altogether.  I am really skeptical it is hitting some hotstop (there
+    are indication over internet that sendfile is helpfull only for large
+    files, more than 10kb) here to justify that extra code complexity or
+    to pursuit other possible fix (through memory or file locks for
+    instance, which I am not sure it is doable).
+    
+    Checked on x86_64-linux-gnu.
+    
+            [BZ #23178]
+            * nscd/nscd-client.h (sendfileall): Remove prototype.
+            * nscd/connections.c [HAVE_SENDFILE] (sendfileall): Remove function.
+            (handle_request): Use writeall instead of sendfileall.
+            * nscd/aicache.c (addhstaiX): Likewise.
+            * nscd/grpcache.c (cache_addgr): Likewise.
+            * nscd/hstcache.c (cache_addhst): Likewise.
+            * nscd/initgrcache.c (addinitgroupsX): Likewise.
+            * nscd/netgroupcache.c (addgetnetgrentX, addinnetgrX): Likewise.
+            * nscd/pwdcache.c (cache_addpw): Likewise.
+            * nscd/servicescache.c (cache_addserv): Likewise.
+            * sysdeps/unix/sysv/linux/Makefile [$(subdir) == nscd]
+            (sysdep-CFLAGS): Remove -DHAVE_SENDFILE.
+            * sysdeps/unix/sysv/linux/kernel-features.h (__ASSUME_SENDFILE):
+            Remove define.
+    
+    [1] http://man7.org/linux/man-pages/man2/sendfile.2.html
+    [2] https://github.com/mkerrisk/man-pages/commit/7b6a3299776b5c1c4f169a591434a855d50c68b4#diff-efd6af3a70f0f07c578e85b51e83b3c3
+
+diff --git a/nscd/netgroupcache.c b/nscd/netgroupcache.c
+index 4fce79283a9badb3..7ee0c284ed58d1e3 100644
+--- a/nscd/netgroupcache.c
++++ b/nscd/netgroupcache.c
+@@ -415,33 +415,7 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+ 	 since while inserting this thread might block and so would
+ 	 unnecessarily let the receiver wait.  */
+     writeout:
+-#ifdef HAVE_SENDFILE
+-      if (__builtin_expect (db->mmap_used, 1) && cacheable)
+-	{
+-	  assert (db->wr_fd != -1);
+-	  assert ((char *) &dataset->resp > (char *) db->data);
+-	  assert ((char *) dataset - (char *) db->head + total
+-		  <= (sizeof (struct database_pers_head)
+-		      + db->head->module * sizeof (ref_t)
+-		      + db->head->data_size));
+-# ifndef __ASSUME_SENDFILE
+-	  ssize_t written =
+-# endif
+-	    sendfileall (fd, db->wr_fd, (char *) &dataset->resp
+-			 - (char *) db->head, dataset->head.recsize);
+-# ifndef __ASSUME_SENDFILE
+-	  if (written == -1 && errno == ENOSYS)
+-	    goto use_write;
+-# endif
+-	}
+-      else
+-#endif
+-	{
+-#if defined HAVE_SENDFILE && !defined __ASSUME_SENDFILE
+-	use_write:
+-#endif
+-	  writeall (fd, &dataset->resp, dataset->head.recsize);
+-	}
++      writeall (fd, &dataset->resp, dataset->head.recsize);
+     }
+ 
+   if (cacheable)
+@@ -596,36 +570,9 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
+       /* We write the dataset before inserting it to the database
+ 	 since while inserting this thread might block and so would
+ 	 unnecessarily let the receiver wait.  */
+-       assert (fd != -1);
++      assert (fd != -1);
+ 
+-#ifdef HAVE_SENDFILE
+-      if (__builtin_expect (db->mmap_used, 1) && cacheable)
+-	{
+-	  assert (db->wr_fd != -1);
+-	  assert ((char *) &dataset->resp > (char *) db->data);
+-	  assert ((char *) dataset - (char *) db->head + sizeof (*dataset)
+-		  <= (sizeof (struct database_pers_head)
+-		      + db->head->module * sizeof (ref_t)
+-		      + db->head->data_size));
+-# ifndef __ASSUME_SENDFILE
+-	  ssize_t written =
+-# endif
+-	    sendfileall (fd, db->wr_fd,
+-			 (char *) &dataset->resp - (char *) db->head,
+-			 sizeof (innetgroup_response_header));
+-# ifndef __ASSUME_SENDFILE
+-	  if (written == -1 && errno == ENOSYS)
+-	    goto use_write;
+-# endif
+-	}
+-      else
+-#endif
+-	{
+-#if defined HAVE_SENDFILE && !defined __ASSUME_SENDFILE
+-	use_write:
+-#endif
+-	  writeall (fd, &dataset->resp, sizeof (innetgroup_response_header));
+-	}
++      writeall (fd, &dataset->resp, sizeof (innetgroup_response_header));
+     }
+ 
+   if (cacheable)

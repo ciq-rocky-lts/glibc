@@ -1,0 +1,25 @@
+commit 83e43bf0b756065dc640680d90fa6f0b39425182
+Author: Allan McRae <allan@archlinux.org>
+Date:   Mon Sep 9 20:23:35 2013 +1000
+
+    Fix nesting of ifdefs in netgroupcache.c
+    
+    Fixes unclosed '{' if HAVE_SENDFILE is defined (BZ #15895).
+
+diff --git a/nscd/netgroupcache.c b/nscd/netgroupcache.c
+index 5262d5e53ae7ce74..4fce79283a9badb3 100644
+--- a/nscd/netgroupcache.c
++++ b/nscd/netgroupcache.c
+@@ -619,10 +619,10 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
+ # endif
+ 	}
+       else
++#endif
+ 	{
+-# ifndef __ASSUME_SENDFILE
++#if defined HAVE_SENDFILE && !defined __ASSUME_SENDFILE
+ 	use_write:
+-# endif
+ #endif
+ 	  writeall (fd, &dataset->resp, sizeof (innetgroup_response_header));
+ 	}
