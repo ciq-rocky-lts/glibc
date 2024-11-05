@@ -1,6 +1,6 @@
 %define glibcsrcdir glibc-2.17-c758a686
 %define glibcversion 2.17
-%define glibcrelease 326%{?dist}
+%define glibcrelease 326.1%{?dist}
 ##############################################################################
 # We support the following options:
 # --with/--without,
@@ -1656,6 +1656,8 @@ Patch20679: glibc-RHEL-34263-8.patch
 Patch20680: glibc-RHEL-34263-9.patch
 Patch20681: glibc-RHEL-34263-10.patch
 
+# CIQ Patches, range begins at 3000
+Patch30000: CVE-2021-35942.patch
 ##############################################################################
 # End of glibc patches.
 ##############################################################################
@@ -3041,6 +3043,9 @@ package or when debugging this package.
 %patch -P 20680 -p1
 %patch -P 20681 -p1
 
+# CIQ patch range begins at 30000
+%patch -P 30000 -p1
+
 ##############################################################################
 # %%prep - Additional prep required...
 ##############################################################################
@@ -4227,6 +4232,9 @@ rm -f *.filelist*
 %endif
 
 %changelog
+* Fri Nov  1 2024 Matt Hink <mhink@ciq.com> - 2.17-326.1.3
+- Fix CVE-2021-35942
+
 * Thu May  2 2024 Florian Weimer <fweimer@redhat.com> - 2.17-326.3
 - nscd: Fix timeout type in netgroup cache (RHEL-34263)
 
