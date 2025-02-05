@@ -155,7 +155,7 @@ end \
 Summary: The GNU libc libraries
 Name: glibc
 Version: %{glibcversion}
-Release: 100%{?dist}.2
+Release: 100%{?dist}.2.1
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
 # libraries.
@@ -813,6 +813,8 @@ Patch576: glibc-RHEL-34318-1.patch
 Patch577: glibc-RHEL-34318-2.patch
 Patch578: glibc-RHEL-34318-3.patch
 Patch579: glibc-RHEL-34318-4.patch
+
+Patch8900: glibc-2.34-upstream-rocky-assert-buffer-overflow-CVE-2025-0395.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2971,6 +2973,10 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Feb 3 2025 Jason Rodriguez <jrodriguez@ciq.com> - 2.34-100.2.1
+- Fix assert() buffer overflow CVE-2025-0395 discovered by Qualys:
+  https://www.openwall.com/lists/oss-security/2025/01/22/4
+
 * Mon Apr 29 2024 Florian Weimer <fweimer@redhat.com> - 2.34-100.2
 - CVE-2024-33599: nscd: buffer overflow in netgroup cache (RHEL-34318)
 - CVE-2024-33600: nscd: null pointer dereferences in netgroup cache
