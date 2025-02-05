@@ -17,10 +17,9 @@ Date:   Thu Apr 25 15:01:07 2024 +0200
     
     Reviewed-by: Siddhesh Poyarekar <siddhesh@sourceware.org>
 
-diff --git a/nscd/netgroupcache.c b/nscd/netgroupcache.c
-index 5ed16f871c433531..92c9cb36fb00d72e 100644
---- a/nscd/netgroupcache.c
-+++ b/nscd/netgroupcache.c
+diff -Nrup glibc-2.34/nscd/netgroupcache.c b/nscd/netgroupcache.c
+--- glibc-2.34/nscd/netgroupcache.c	2024-06-13 13:55:16.406511485 -0400
++++ b/nscd/netgroupcache.c	2024-06-13 13:34:45.523345077 -0400
 @@ -24,6 +24,7 @@
  #include <stdlib.h>
  #include <unistd.h>
@@ -46,7 +45,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  /* Sends a notfound message and prepares a notfound dataset to write to the
     cache.  Returns true if there was enough memory to allocate the dataset and
     returns the dataset in DATASETP, total bytes to write in TOTALP and the
-@@ -84,8 +95,7 @@ do_notfound (struct database_dyn *db, int fd, request_header *req,
+@@ -84,8 +95,7 @@ do_notfound (struct database_dyn *db, in
    total = sizeof (notfound);
    timeout = time (NULL) + db->negtimeout;
  
@@ -56,7 +55,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  
    dataset = mempool_alloc (db, sizeof (struct dataset) + req->key_len, 1);
    /* If we cannot permanently store the result, so be it.  */
-@@ -110,11 +120,78 @@ do_notfound (struct database_dyn *db, int fd, request_header *req,
+@@ -110,11 +120,78 @@ do_notfound (struct database_dyn *db, in
    return cacheable;
  }
  
@@ -137,7 +136,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  {
    if (__glibc_unlikely (debug_level > 0))
      {
-@@ -133,14 +210,10 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -133,14 +210,10 @@ addgetnetgrentX (struct database_dyn *db
  
    char *key_copy = NULL;
    struct __netgrent data;
@@ -152,7 +151,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  
    if (netgroup_database == NULL
        && !__nss_database_get (nss_database_netgroup, &netgroup_database))
-@@ -152,8 +225,6 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -152,8 +225,6 @@ addgetnetgrentX (struct database_dyn *db
      }
  
    memset (&data, '\0', sizeof (data));
@@ -161,7 +160,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
    first_needed->next = first_needed;
    memcpy (first_needed->name, key, group_len);
    data.needed_groups = first_needed;
-@@ -196,8 +267,8 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -196,8 +267,8 @@ addgetnetgrentX (struct database_dyn *db
  		while (1)
  		  {
  		    int e;
@@ -172,7 +171,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  		    if (status == NSS_STATUS_SUCCESS)
  		      {
  			if (data.type == triple_val)
-@@ -205,68 +276,10 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -205,68 +276,10 @@ addgetnetgrentX (struct database_dyn *db
  			    const char *nhost = data.val.triple.host;
  			    const char *nuser = data.val.triple.user;
  			    const char *ndomain = data.val.triple.domain;
@@ -245,7 +244,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  			    ++nentries;
  			  }
  			else
-@@ -318,8 +331,8 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -318,8 +331,8 @@ addgetnetgrentX (struct database_dyn *db
  		      }
  		    else if (status == NSS_STATUS_TRYAGAIN && e == ERANGE)
  		      {
@@ -256,7 +255,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  		      }
  		    else if (status == NSS_STATUS_RETURN
  			     || status == NSS_STATUS_NOTFOUND
-@@ -352,10 +365,17 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -352,10 +365,17 @@ addgetnetgrentX (struct database_dyn *db
        goto maybe_cache_add;
      }
  
@@ -276,7 +275,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
    timeout = datahead_init_pos (&dataset->head, total + req->key_len,
  			       total - offsetof (struct dataset, resp),
  			       he == NULL ? 0 : dh->nreloads + 1,
-@@ -364,11 +384,7 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -364,11 +384,7 @@ addgetnetgrentX (struct database_dyn *db
    dataset->resp.version = NSCD_VERSION;
    dataset->resp.found = 1;
    dataset->resp.nresults = nentries;
@@ -289,7 +288,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  
    /* Now we can determine whether on refill we have to create a new
       record or not.  */
-@@ -399,7 +415,7 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -399,7 +415,7 @@ addgetnetgrentX (struct database_dyn *db
      if (__glibc_likely (newp != NULL))
        {
  	/* Adjust pointer into the memory block.  */
@@ -298,7 +297,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  
  	dataset = memcpy (newp, dataset, total + req->key_len);
  	cacheable = true;
-@@ -440,7 +456,7 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -440,7 +456,7 @@ addgetnetgrentX (struct database_dyn *db
      }
  
   out:
@@ -307,7 +306,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  
    return timeout;
  }
-@@ -461,6 +477,9 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
+@@ -461,6 +477,9 @@ addinnetgrX (struct database_dyn *db, in
    if (user != NULL)
      key = (char *) rawmemchr (key, '\0') + 1;
    const char *domain = *key++ ? key : NULL;
@@ -317,7 +316,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
  
    if (__glibc_unlikely (debug_level > 0))
      {
-@@ -476,12 +495,8 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
+@@ -476,12 +495,8 @@ addinnetgrX (struct database_dyn *db, in
  							    group, group_len,
  							    db, uid);
    time_t timeout;
@@ -331,7 +330,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
    else
      {
        request_header req_get =
-@@ -490,7 +505,10 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
+@@ -490,7 +505,10 @@ addinnetgrX (struct database_dyn *db, in
  	  .key_len = group_len
  	};
        timeout = addgetnetgrentX (db, -1, &req_get, group, uid, NULL, NULL,
@@ -343,7 +342,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
      }
  
    struct indataset
-@@ -604,7 +622,7 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
+@@ -604,7 +622,7 @@ addinnetgrX (struct database_dyn *db, in
      }
  
   out:
@@ -352,7 +351,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
    return timeout;
  }
  
-@@ -614,11 +632,12 @@ addgetnetgrentX_ignore (struct database_dyn *db, int fd, request_header *req,
+@@ -614,11 +632,12 @@ addgetnetgrentX_ignore (struct database_
  			const char *key, uid_t uid, struct hashentry *he,
  			struct datahead *dh)
  {
@@ -370,7 +369,7 @@ index 5ed16f871c433531..92c9cb36fb00d72e 100644
    return timeout;
  }
  
-@@ -662,5 +681,9 @@ readdinnetgr (struct database_dyn *db, struct hashentry *he,
+@@ -662,5 +681,9 @@ readdinnetgr (struct database_dyn *db, s
        .key_len = he->len
      };
  

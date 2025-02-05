@@ -10,10 +10,10 @@ Date:   Thu Apr 25 15:01:07 2024 +0200
     Reviewed-by: Siddhesh Poyarekar <siddhesh@sourceware.org>
 
 diff --git a/nscd/netgroupcache.c b/nscd/netgroupcache.c
-index f13a11b4c4fe3d99..08668e96a9fd2c77 100644
+index f227dc7fa2..c18fe111f3 100644
 --- a/nscd/netgroupcache.c
 +++ b/nscd/netgroupcache.c
-@@ -148,7 +148,7 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -147,7 +147,7 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
        /* No such service.  */
        cacheable = do_notfound (db, fd, req, key, &dataset, &total, &timeout,
  			       &key_copy);
@@ -22,7 +22,7 @@ index f13a11b4c4fe3d99..08668e96a9fd2c77 100644
      }
  
    memset (&data, '\0', sizeof (data));
-@@ -349,7 +349,7 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -348,7 +348,7 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
      {
        cacheable = do_notfound (db, fd, req, key, &dataset, &total, &timeout,
  			       &key_copy);
@@ -31,7 +31,7 @@ index f13a11b4c4fe3d99..08668e96a9fd2c77 100644
      }
  
    total = buffilled;
-@@ -411,14 +411,12 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
+@@ -410,14 +410,12 @@ addgetnetgrentX (struct database_dyn *db, int fd, request_header *req,
    }
  
    if (he == NULL && fd != -1)

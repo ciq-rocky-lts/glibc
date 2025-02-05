@@ -10,10 +10,10 @@ Date:   Thu Apr 25 15:00:45 2024 +0200
     Reviewed-by: Carlos O'Donell <carlos@redhat.com>
 
 diff --git a/nscd/netgroupcache.c b/nscd/netgroupcache.c
-index 2f71bf2999dad56b..f13a11b4c4fe3d99 100644
+index 0c6e46f15c..f227dc7fa2 100644
 --- a/nscd/netgroupcache.c
 +++ b/nscd/netgroupcache.c
-@@ -503,12 +503,13 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
+@@ -502,12 +502,13 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
        = (struct indataset *) mempool_alloc (db,
  					    sizeof (*dataset) + req->key_len,
  					    1);

@@ -18,10 +18,10 @@ Date:   Thu Apr 25 15:01:07 2024 +0200
     Reviewed-by: Siddhesh Poyarekar <siddhesh@sourceware.org>
 
 diff --git a/nscd/netgroupcache.c b/nscd/netgroupcache.c
-index 08668e96a9fd2c77..5ed16f871c433531 100644
+index c18fe111f3..e22ffa5884 100644
 --- a/nscd/netgroupcache.c
 +++ b/nscd/netgroupcache.c
-@@ -512,14 +512,15 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
+@@ -511,14 +511,15 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
  
    datahead_init_pos (&dataset->head, sizeof (*dataset) + req->key_len,
  		     sizeof (innetgroup_response_header),
@@ -40,7 +40,7 @@ index 08668e96a9fd2c77..5ed16f871c433531 100644
    /* Until we find a matching entry the result is 0.  */
    dataset->resp.result = 0;
  
-@@ -567,7 +568,9 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
+@@ -566,7 +567,9 @@ addinnetgrX (struct database_dyn *db, int fd, request_header *req,
        goto out;
      }
  
