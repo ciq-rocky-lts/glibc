@@ -1,11 +1,19 @@
-Loosely based on commit df4e1f4a5096b385c9bcc94424cf2eaa227b3761 from upstream
-2.34 branch, with changes to NEWS omitted and last hunk of libc_fatal.c patch
-replaced to apply on top of glibc-rh2117712-1.patch (which is upstream commit
-cca9684f2d7a74fc0b28bfb1859955e0e28d7b4b)
+commit 68ee0f704cb81e9ad0a78c644a83e1e9cd2ee578
+Author: Siddhesh Poyarekar <siddhesh@sourceware.org>
+Date:   Tue Jan 21 16:11:06 2025 -0500
 
-diff -urp glibc-2.34-patched/assert/assert.c glibc-2.34-assert/assert/assert.c
---- glibc-2.34-patched/assert/assert.c	2023-09-23 20:45:22.546096739 +0000
-+++ glibc-2.34-assert/assert/assert.c	2025-01-27 02:24:32.056042886 +0000
+    Fix underallocation of abort_msg_s struct (CVE-2025-0395)
+    
+    Include the space needed to store the length of the message itself, in
+    addition to the message string.  This resolves BZ #32582.
+    
+    Signed-off-by: Siddhesh Poyarekar <siddhesh@sourceware.org>
+    Reviewed: Adhemerval Zanella  <adhemerval.zanella@linaro.org>
+
+diff --git a/assert/assert.c b/assert/assert.c
+index 989126c7e5b6b265..d14bb76b1fb43f57 100644
+--- a/assert/assert.c
++++ b/assert/assert.c
 @@ -18,6 +18,7 @@
  #include <assert.h>
  #include <atomic.h>
@@ -14,7 +22,7 @@ diff -urp glibc-2.34-patched/assert/assert.c glibc-2.34-assert/assert/assert.c
  #include <libintl.h>
  #include <stdio.h>
  #include <stdlib.h>
-@@ -64,7 +65,8 @@ __assert_fail_base (const char *fmt, con
+@@ -64,7 +65,8 @@ __assert_fail_base (const char *fmt, const char *assertion, const char *file,
        (void) __fxprintf (NULL, "%s", str);
        (void) fflush (stderr);
  
@@ -24,9 +32,10 @@ diff -urp glibc-2.34-patched/assert/assert.c glibc-2.34-assert/assert/assert.c
        struct abort_msg_s *buf = __mmap (NULL, total, PROT_READ | PROT_WRITE,
  					MAP_ANON | MAP_PRIVATE, -1, 0);
        if (__glibc_likely (buf != MAP_FAILED))
-diff -urp glibc-2.34-patched/sysdeps/posix/libc_fatal.c glibc-2.34-assert/sysdeps/posix/libc_fatal.c
---- glibc-2.34-patched/sysdeps/posix/libc_fatal.c	2023-09-23 20:45:22.540096958 +0000
-+++ glibc-2.34-assert/sysdeps/posix/libc_fatal.c	2025-01-27 02:26:13.228966132 +0000
+diff --git a/sysdeps/posix/libc_fatal.c b/sysdeps/posix/libc_fatal.c
+index 1feacfbeba765035..7929f1601d4a89c9 100644
+--- a/sysdeps/posix/libc_fatal.c
++++ b/sysdeps/posix/libc_fatal.c
 @@ -20,6 +20,7 @@
  #include <errno.h>
  #include <fcntl.h>
@@ -41,7 +50,7 @@ diff -urp glibc-2.34-patched/sysdeps/posix/libc_fatal.c glibc-2.34-assert/sysdep
  
 -      total = (total + 1 + GLRO(dl_pagesize) - 1) & ~(GLRO(dl_pagesize) - 1);
 +      total = ALIGN_UP (total + sizeof (struct abort_msg_s) + 1,
-+                        GLRO(dl_pagesize));
++			GLRO(dl_pagesize));
        struct abort_msg_s *buf = __mmap (NULL, total,
  					PROT_READ | PROT_WRITE,
  					MAP_ANON | MAP_PRIVATE, -1, 0);

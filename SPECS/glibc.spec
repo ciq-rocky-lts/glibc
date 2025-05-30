@@ -154,10 +154,10 @@ end \
 ##############################################################################
 # %%package glibc - The GNU C Library (glibc) core package.
 ##############################################################################
-Summary:              The GNU libc libraries
-Name:                 glibc
-Version:              %{glibcversion}
-Release:              125%{?dist}.1.0.1
+Summary: The GNU libc libraries
+Name: glibc
+Version: %{glibcversion}
+Release: 125%{?dist}.8
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
 # libraries.
@@ -184,20 +184,20 @@ Release:              125%{?dist}.1.0.1
 #
 # LGPLv2 is used in one place (time/timespec_get.c, by mistake), but
 # it is not actually compiled, so it does not matter for libraries.
-License:              LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL
+License: LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL
 
-URL:                  http://www.gnu.org/software/glibc/
-Source0:              %{?glibc_release_url}%{glibcsrcdir}.tar.xz
-Source1:              nscd.conf
-Source2:              bench.mk
-Source3:              glibc-bench-compare
-Source4:              glibc.req.in
-Source5:              glibc.attr
-Source10:             wrap-find-debuginfo.sh
-Source11:             parse-SUPPORTED.py
+URL: http://www.gnu.org/software/glibc/
+Source0: %{?glibc_release_url}%{glibcsrcdir}.tar.xz
+Source1: nscd.conf
+Source2: bench.mk
+Source3: glibc-bench-compare
+Source4: glibc.req.in
+Source5: glibc.attr
+Source10: wrap-find-debuginfo.sh
+Source11: parse-SUPPORTED.py
 # Include in the source RPM for reference.
-Source12:             ChangeLog.old
-Source13:             nscd-sysusers.conf
+Source12: ChangeLog.old
+Source13: nscd-sysusers.conf
 
 ######################################################################
 # Activate the wrapper script for debuginfo generation, by rewriting
@@ -236,711 +236,735 @@ rpm.define("__debug_install_post bash " .. wrapper
 # - See each individual patch file for origin and upstream status.
 # - For new patches follow template.patch format.
 ##############################################################################
-Patch1:               glibc-fedora-nscd.patch
-Patch4:               glibc-fedora-linux-tcsetattr.patch
-Patch8:               glibc-fedora-manual-dircategory.patch
-Patch9:               glibc-rh827510.patch
-Patch13:              glibc-fedora-localedata-rh61908.patch
-Patch15:              glibc-rh1070416.patch
-Patch16:              glibc-nscd-sysconfig.patch
-Patch17:              glibc-cs-path.patch
-Patch18:              glibc-c-utf8-locale-1.patch
-Patch19:              glibc-c-utf8-locale-2.patch
-Patch23:              glibc-python3.patch
-Patch29:              glibc-fedora-nsswitch.patch
-Patch30:              glibc-deprecated-selinux-makedb.patch
-Patch31:              glibc-deprecated-selinux-nscd.patch
-Patch32:              glibc-upstream-2.34-1.patch
-Patch33:              glibc-upstream-2.34-2.patch
-Patch34:              glibc-upstream-2.34-3.patch
-Patch35:              glibc-upstream-2.34-4.patch
-Patch36:              glibc-upstream-2.34-5.patch
-Patch37:              glibc-upstream-2.34-6.patch
-Patch38:              glibc-upstream-2.34-7.patch
-Patch39:              glibc-upstream-2.34-8.patch
-Patch40:              glibc-upstream-2.34-9.patch
-Patch41:              glibc-upstream-2.34-10.patch
-Patch42:              glibc-upstream-2.34-11.patch
-Patch43:              glibc-upstream-2.34-12.patch
-Patch44:              glibc-upstream-2.34-13.patch
-Patch45:              glibc-upstream-2.34-14.patch
-Patch46:              glibc-upstream-2.34-15.patch
-Patch47:              glibc-upstream-2.34-16.patch
-Patch48:              glibc-upstream-2.34-17.patch
-Patch49:              glibc-upstream-2.34-18.patch
-Patch50:              glibc-upstream-2.34-19.patch
-Patch51:              glibc-upstream-2.34-20.patch
-Patch52:              glibc-upstream-2.34-21.patch
-Patch53:              glibc-upstream-2.34-22.patch
-Patch54:              glibc-upstream-2.34-23.patch
-Patch55:              glibc-upstream-2.34-24.patch
-Patch56:              glibc-upstream-2.34-25.patch
-Patch57:              glibc-upstream-2.34-26.patch
-Patch58:              glibc-upstream-2.34-27.patch
-Patch59:              glibc-upstream-2.34-28.patch
-Patch60:              glibc-upstream-2.34-29.patch
-Patch61:              glibc-upstream-2.34-30.patch
-Patch62:              glibc-upstream-2.34-31.patch
-Patch63:              glibc-upstream-2.34-32.patch
-Patch64:              glibc-upstream-2.34-33.patch
-Patch65:              glibc-upstream-2.34-34.patch
-Patch66:              glibc-upstream-2.34-35.patch
-Patch67:              glibc-upstream-2.34-36.patch
-Patch68:              glibc-upstream-2.34-37.patch
-Patch69:              glibc-upstream-2.34-38.patch
-Patch70:              glibc-upstream-2.34-39.patch
-Patch71:              glibc-upstream-2.34-40.patch
-Patch72:              glibc-upstream-2.34-41.patch
-Patch73:              glibc-upstream-2.34-42.patch
-Patch74:              glibc-upstream-2.34-43.patch
-Patch75:              glibc-upstream-2.34-44.patch
-Patch76:              glibc-upstream-2.34-45.patch
-Patch77:              glibc-upstream-2.34-46.patch
-Patch78:              glibc-upstream-2.34-47.patch
-Patch79:              glibc-upstream-2.34-48.patch
-Patch80:              glibc-upstream-2.34-49.patch
-Patch81:              glibc-rh2027789.patch
-Patch82:              glibc-rh2023422-1.patch
-Patch83:              glibc-rh2023422-2.patch
-Patch84:              glibc-rh2023422-3.patch
-Patch85:              glibc-rh2029410.patch
-Patch86:              glibc-upstream-2.34-50.patch
-Patch87:              glibc-upstream-2.34-51.patch
-Patch88:              glibc-upstream-2.34-52.patch
-Patch89:              glibc-upstream-2.34-53.patch
-Patch90:              glibc-rh1988382.patch
-Patch91:              glibc-upstream-2.34-54.patch
-Patch92:              glibc-upstream-2.34-55.patch
-Patch93:              glibc-upstream-2.34-56.patch
-Patch94:              glibc-upstream-2.34-57.patch
-Patch95:              glibc-upstream-2.34-58.patch
-Patch96:              glibc-upstream-2.34-59.patch
-Patch97:              glibc-upstream-2.34-60.patch
-Patch98:              glibc-upstream-2.34-61.patch
-Patch99:              glibc-upstream-2.34-62.patch
-Patch100:             glibc-upstream-2.34-63.patch
-Patch101:             glibc-upstream-2.34-64.patch
-Patch102:             glibc-upstream-2.34-65.patch
-Patch103:             glibc-upstream-2.34-66.patch
-Patch104:             glibc-upstream-2.34-67.patch
-Patch105:             glibc-upstream-2.34-68.patch
-Patch106:             glibc-upstream-2.34-69.patch
-Patch107:             glibc-upstream-2.34-70.patch
-Patch108:             glibc-upstream-2.34-71.patch
-Patch109:             glibc-upstream-2.34-72.patch
-Patch110:             glibc-upstream-2.34-73.patch
-Patch111:             glibc-rh2032647-1.patch
-Patch112:             glibc-rh2032647-2.patch
-Patch113:             glibc-rh2032647-3.patch
-Patch114:             glibc-rh2032647-4.patch
-Patch115:             glibc-rh2032647-5.patch
-Patch116:             glibc-rh2032647-6.patch
-Patch117:             glibc-rh2024347-1.patch
-Patch118:             glibc-rh2024347-2.patch
-Patch119:             glibc-rh2024347-3.patch
-Patch120:             glibc-rh2024347-4.patch
-Patch121:             glibc-rh2024347-5.patch
-Patch122:             glibc-rh2024347-6.patch
-Patch123:             glibc-rh2024347-7.patch
-Patch124:             glibc-rh2024347-8.patch
-Patch125:             glibc-rh2024347-9.patch
-Patch126:             glibc-rh2024347-10.patch
-Patch127:             glibc-rh2024347-11.patch
-Patch128:             glibc-rh2024347-12.patch
-Patch129:             glibc-rh2024347-13.patch
-Patch130:             glibc-rh2040657-1.patch
-Patch131:             glibc-rh2040657-2.patch
-Patch132:             glibc-rh2040657-3.patch
-Patch133:             glibc-rh2040657-4.patch
-Patch134:             glibc-rh2040657-5.patch
-Patch135:             glibc-rh2040657-6.patch
-Patch136:             glibc-rh2040657-7.patch
-Patch137:             glibc-rh2040657-8.patch
-Patch138:             glibc-rh2040657-9.patch
-Patch139:             glibc-rh2040657-10.patch
-Patch140:             glibc-rh2040657-11.patch
-Patch141:             glibc-rh2040657-12.patch
-Patch142:             glibc-upstream-2.34-74.patch
-Patch143:             glibc-upstream-2.34-75.patch
-Patch144:             glibc-upstream-2.34-76.patch
-Patch145:             glibc-upstream-2.34-77.patch
-Patch146:             glibc-upstream-2.34-78.patch
-Patch147:             glibc-upstream-2.34-79.patch
-Patch148:             glibc-upstream-2.34-80.patch
-Patch149:             glibc-upstream-2.34-81.patch
-Patch150:             glibc-upstream-2.34-82.patch
-Patch151:             glibc-upstream-2.34-83.patch
-Patch152:             glibc-upstream-2.34-84.patch
-Patch153:             glibc-upstream-2.34-85.patch
-Patch154:             glibc-upstream-2.34-86.patch
-Patch155:             glibc-upstream-2.34-87.patch
-Patch156:             glibc-upstream-2.34-88.patch
-Patch157:             glibc-upstream-2.34-89.patch
+Patch1: glibc-fedora-nscd.patch
+Patch4: glibc-fedora-linux-tcsetattr.patch
+Patch8: glibc-fedora-manual-dircategory.patch
+Patch9: glibc-rh827510.patch
+Patch13: glibc-fedora-localedata-rh61908.patch
+Patch15: glibc-rh1070416.patch
+Patch16: glibc-nscd-sysconfig.patch
+Patch17: glibc-cs-path.patch
+Patch18: glibc-c-utf8-locale-1.patch
+Patch19: glibc-c-utf8-locale-2.patch
+Patch23: glibc-python3.patch
+Patch29: glibc-fedora-nsswitch.patch
+Patch30: glibc-deprecated-selinux-makedb.patch
+Patch31: glibc-deprecated-selinux-nscd.patch
+Patch32: glibc-upstream-2.34-1.patch
+Patch33: glibc-upstream-2.34-2.patch
+Patch34: glibc-upstream-2.34-3.patch
+Patch35: glibc-upstream-2.34-4.patch
+Patch36: glibc-upstream-2.34-5.patch
+Patch37: glibc-upstream-2.34-6.patch
+Patch38: glibc-upstream-2.34-7.patch
+Patch39: glibc-upstream-2.34-8.patch
+Patch40: glibc-upstream-2.34-9.patch
+Patch41: glibc-upstream-2.34-10.patch
+Patch42: glibc-upstream-2.34-11.patch
+Patch43: glibc-upstream-2.34-12.patch
+Patch44: glibc-upstream-2.34-13.patch
+Patch45: glibc-upstream-2.34-14.patch
+Patch46: glibc-upstream-2.34-15.patch
+Patch47: glibc-upstream-2.34-16.patch
+Patch48: glibc-upstream-2.34-17.patch
+Patch49: glibc-upstream-2.34-18.patch
+Patch50: glibc-upstream-2.34-19.patch
+Patch51: glibc-upstream-2.34-20.patch
+Patch52: glibc-upstream-2.34-21.patch
+Patch53: glibc-upstream-2.34-22.patch
+Patch54: glibc-upstream-2.34-23.patch
+Patch55: glibc-upstream-2.34-24.patch
+Patch56: glibc-upstream-2.34-25.patch
+Patch57: glibc-upstream-2.34-26.patch
+Patch58: glibc-upstream-2.34-27.patch
+Patch59: glibc-upstream-2.34-28.patch
+Patch60: glibc-upstream-2.34-29.patch
+Patch61: glibc-upstream-2.34-30.patch
+Patch62: glibc-upstream-2.34-31.patch
+Patch63: glibc-upstream-2.34-32.patch
+Patch64: glibc-upstream-2.34-33.patch
+Patch65: glibc-upstream-2.34-34.patch
+Patch66: glibc-upstream-2.34-35.patch
+Patch67: glibc-upstream-2.34-36.patch
+Patch68: glibc-upstream-2.34-37.patch
+Patch69: glibc-upstream-2.34-38.patch
+Patch70: glibc-upstream-2.34-39.patch
+Patch71: glibc-upstream-2.34-40.patch
+Patch72: glibc-upstream-2.34-41.patch
+Patch73: glibc-upstream-2.34-42.patch
+Patch74: glibc-upstream-2.34-43.patch
+Patch75: glibc-upstream-2.34-44.patch
+Patch76: glibc-upstream-2.34-45.patch
+Patch77: glibc-upstream-2.34-46.patch
+Patch78: glibc-upstream-2.34-47.patch
+Patch79: glibc-upstream-2.34-48.patch
+Patch80: glibc-upstream-2.34-49.patch
+Patch81: glibc-rh2027789.patch
+Patch82: glibc-rh2023422-1.patch
+Patch83: glibc-rh2023422-2.patch
+Patch84: glibc-rh2023422-3.patch
+Patch85: glibc-rh2029410.patch
+Patch86: glibc-upstream-2.34-50.patch
+Patch87: glibc-upstream-2.34-51.patch
+Patch88: glibc-upstream-2.34-52.patch
+Patch89: glibc-upstream-2.34-53.patch
+Patch90: glibc-rh1988382.patch
+Patch91: glibc-upstream-2.34-54.patch
+Patch92: glibc-upstream-2.34-55.patch
+Patch93: glibc-upstream-2.34-56.patch
+Patch94: glibc-upstream-2.34-57.patch
+Patch95: glibc-upstream-2.34-58.patch
+Patch96: glibc-upstream-2.34-59.patch
+Patch97: glibc-upstream-2.34-60.patch
+Patch98: glibc-upstream-2.34-61.patch
+Patch99: glibc-upstream-2.34-62.patch
+Patch100: glibc-upstream-2.34-63.patch
+Patch101: glibc-upstream-2.34-64.patch
+Patch102: glibc-upstream-2.34-65.patch
+Patch103: glibc-upstream-2.34-66.patch
+Patch104: glibc-upstream-2.34-67.patch
+Patch105: glibc-upstream-2.34-68.patch
+Patch106: glibc-upstream-2.34-69.patch
+Patch107: glibc-upstream-2.34-70.patch
+Patch108: glibc-upstream-2.34-71.patch
+Patch109: glibc-upstream-2.34-72.patch
+Patch110: glibc-upstream-2.34-73.patch
+Patch111: glibc-rh2032647-1.patch
+Patch112: glibc-rh2032647-2.patch
+Patch113: glibc-rh2032647-3.patch
+Patch114: glibc-rh2032647-4.patch
+Patch115: glibc-rh2032647-5.patch
+Patch116: glibc-rh2032647-6.patch
+Patch117: glibc-rh2024347-1.patch
+Patch118: glibc-rh2024347-2.patch
+Patch119: glibc-rh2024347-3.patch
+Patch120: glibc-rh2024347-4.patch
+Patch121: glibc-rh2024347-5.patch
+Patch122: glibc-rh2024347-6.patch
+Patch123: glibc-rh2024347-7.patch
+Patch124: glibc-rh2024347-8.patch
+Patch125: glibc-rh2024347-9.patch
+Patch126: glibc-rh2024347-10.patch
+Patch127: glibc-rh2024347-11.patch
+Patch128: glibc-rh2024347-12.patch
+Patch129: glibc-rh2024347-13.patch
+Patch130: glibc-rh2040657-1.patch
+Patch131: glibc-rh2040657-2.patch
+Patch132: glibc-rh2040657-3.patch
+Patch133: glibc-rh2040657-4.patch
+Patch134: glibc-rh2040657-5.patch
+Patch135: glibc-rh2040657-6.patch
+Patch136: glibc-rh2040657-7.patch
+Patch137: glibc-rh2040657-8.patch
+Patch138: glibc-rh2040657-9.patch
+Patch139: glibc-rh2040657-10.patch
+Patch140: glibc-rh2040657-11.patch
+Patch141: glibc-rh2040657-12.patch
+Patch142: glibc-upstream-2.34-74.patch
+Patch143: glibc-upstream-2.34-75.patch
+Patch144: glibc-upstream-2.34-76.patch
+Patch145: glibc-upstream-2.34-77.patch
+Patch146: glibc-upstream-2.34-78.patch
+Patch147: glibc-upstream-2.34-79.patch
+Patch148: glibc-upstream-2.34-80.patch
+Patch149: glibc-upstream-2.34-81.patch
+Patch150: glibc-upstream-2.34-82.patch
+Patch151: glibc-upstream-2.34-83.patch
+Patch152: glibc-upstream-2.34-84.patch
+Patch153: glibc-upstream-2.34-85.patch
+Patch154: glibc-upstream-2.34-86.patch
+Patch155: glibc-upstream-2.34-87.patch
+Patch156: glibc-upstream-2.34-88.patch
+Patch157: glibc-upstream-2.34-89.patch
 # glibc-2.34-90-g1b9cd6a721 only changes NEWS.
-Patch158:             glibc-upstream-2.34-91.patch
-Patch159:             glibc-upstream-2.34-92.patch
+Patch158: glibc-upstream-2.34-91.patch
+Patch159: glibc-upstream-2.34-92.patch
 # glibc-2.34-93-g72123e1b56 only changes NEWS.
 # glibc-2.34-94-g31186e2cb7 is glibc-rh2040657-1.patch.
 # glibc-2.34-95-g511b244cc5 is glibc-rh2040657-2.patch.
 # glibc-2.34-96-gde6cdd6875 is glibc-rh2040657-6.patch.
-Patch160:             glibc-upstream-2.34-97.patch
-Patch161:             glibc-upstream-2.34-98.patch
-Patch162:             glibc-upstream-2.34-99.patch
-Patch163:             glibc-c-utf8-locale-3.patch
-Patch164:             glibc-c-utf8-locale-4.patch
-Patch165:             glibc-c-utf8-locale-5.patch
-Patch166:             glibc-upstream-2.34-100.patch
-Patch167:             glibc-upstream-2.34-101.patch
-Patch168:             glibc-upstream-2.34-102.patch
-Patch169:             glibc-upstream-2.34-103.patch
-Patch170:             glibc-upstream-2.34-104.patch
-Patch171:             glibc-upstream-2.34-105.patch
-Patch172:             glibc-upstream-2.34-106.patch
-Patch173:             glibc-upstream-2.34-107.patch
-Patch174:             glibc-rh2058224-1.patch
-Patch175:             glibc-rh2058224-2.patch
-Patch176:             glibc-rh2058230.patch
-Patch177:             glibc-rh2054789.patch
-Patch178:             glibc-upstream-2.34-108.patch
+Patch160: glibc-upstream-2.34-97.patch
+Patch161: glibc-upstream-2.34-98.patch
+Patch162: glibc-upstream-2.34-99.patch
+Patch163: glibc-c-utf8-locale-3.patch
+Patch164: glibc-c-utf8-locale-4.patch
+Patch165: glibc-c-utf8-locale-5.patch
+Patch166: glibc-upstream-2.34-100.patch
+Patch167: glibc-upstream-2.34-101.patch
+Patch168: glibc-upstream-2.34-102.patch
+Patch169: glibc-upstream-2.34-103.patch
+Patch170: glibc-upstream-2.34-104.patch
+Patch171: glibc-upstream-2.34-105.patch
+Patch172: glibc-upstream-2.34-106.patch
+Patch173: glibc-upstream-2.34-107.patch
+Patch174: glibc-rh2058224-1.patch
+Patch175: glibc-rh2058224-2.patch
+Patch176: glibc-rh2058230.patch
+Patch177: glibc-rh2054789.patch
+Patch178: glibc-upstream-2.34-108.patch
 # glibc-2.34-109-gd64b08d5ba only changes NEWS.
-Patch179:             glibc-upstream-2.34-110.patch
-Patch180:             glibc-upstream-2.34-111.patch
-Patch181:             glibc-upstream-2.34-112.patch
-Patch182:             glibc-upstream-2.34-113.patch
-Patch183:             glibc-upstream-2.34-114.patch
+Patch179: glibc-upstream-2.34-110.patch
+Patch180: glibc-upstream-2.34-111.patch
+Patch181: glibc-upstream-2.34-112.patch
+Patch182: glibc-upstream-2.34-113.patch
+Patch183: glibc-upstream-2.34-114.patch
 # glibc-2.34-115-gd5d1c95aaf only changes NEWS.
 # glibc-2.34-116-g852361b5a3 is glibc-rh2054789.patch.
-Patch184:             glibc-upstream-2.34-117.patch
-Patch185:             glibc-upstream-2.34-118.patch
-Patch186:             glibc-upstream-2.34-119.patch
-Patch187:             glibc-upstream-2.34-120.patch
-Patch188:             glibc-upstream-2.34-121.patch
-Patch189:             glibc-upstream-2.34-122.patch
-Patch190:             glibc-upstream-2.34-123.patch
-Patch191:             glibc-upstream-2.34-124.patch
-Patch192:             glibc-upstream-2.34-125.patch
-Patch193:             glibc-upstream-2.34-126.patch
-Patch194:             glibc-upstream-2.34-127.patch
-Patch195:             glibc-upstream-2.34-128.patch
-Patch196:             glibc-upstream-2.34-129.patch
-Patch197:             glibc-upstream-2.34-130.patch
-Patch198:             glibc-upstream-2.34-131.patch
-Patch199:             glibc-upstream-2.34-132.patch
-Patch200:             glibc-upstream-2.34-133.patch
-Patch201:             glibc-upstream-2.34-134.patch
-Patch202:             glibc-upstream-2.34-135.patch
-Patch203:             glibc-upstream-2.34-136.patch
-Patch204:             glibc-upstream-2.34-137.patch
-Patch205:             glibc-upstream-2.34-138.patch
-Patch206:             glibc-upstream-2.34-139.patch
-Patch207:             glibc-upstream-2.34-140.patch
-Patch208:             glibc-upstream-2.34-141.patch
-Patch209:             glibc-upstream-2.34-142.patch
-Patch210:             glibc-upstream-2.34-143.patch
-Patch211:             glibc-upstream-2.34-144.patch
-Patch212:             glibc-upstream-2.34-145.patch
-Patch213:             glibc-upstream-2.34-146.patch
-Patch214:             glibc-upstream-2.34-147.patch
-Patch215:             glibc-upstream-2.34-148.patch
-Patch216:             glibc-upstream-2.34-149.patch
-Patch217:             glibc-upstream-2.34-150.patch
-Patch218:             glibc-upstream-2.34-151.patch
-Patch219:             glibc-upstream-2.34-152.patch
-Patch220:             glibc-upstream-2.34-153.patch
-Patch221:             glibc-upstream-2.34-154.patch
-Patch222:             glibc-upstream-2.34-155.patch
-Patch223:             glibc-upstream-2.34-156.patch
-Patch224:             glibc-upstream-2.34-157.patch
-Patch225:             glibc-upstream-2.34-158.patch
-Patch226:             glibc-upstream-2.34-159.patch
-Patch227:             glibc-upstream-2.34-160.patch
+Patch184: glibc-upstream-2.34-117.patch
+Patch185: glibc-upstream-2.34-118.patch
+Patch186: glibc-upstream-2.34-119.patch
+Patch187: glibc-upstream-2.34-120.patch
+Patch188: glibc-upstream-2.34-121.patch
+Patch189: glibc-upstream-2.34-122.patch
+Patch190: glibc-upstream-2.34-123.patch
+Patch191: glibc-upstream-2.34-124.patch
+Patch192: glibc-upstream-2.34-125.patch
+Patch193: glibc-upstream-2.34-126.patch
+Patch194: glibc-upstream-2.34-127.patch
+Patch195: glibc-upstream-2.34-128.patch
+Patch196: glibc-upstream-2.34-129.patch
+Patch197: glibc-upstream-2.34-130.patch
+Patch198: glibc-upstream-2.34-131.patch
+Patch199: glibc-upstream-2.34-132.patch
+Patch200: glibc-upstream-2.34-133.patch
+Patch201: glibc-upstream-2.34-134.patch
+Patch202: glibc-upstream-2.34-135.patch
+Patch203: glibc-upstream-2.34-136.patch
+Patch204: glibc-upstream-2.34-137.patch
+Patch205: glibc-upstream-2.34-138.patch
+Patch206: glibc-upstream-2.34-139.patch
+Patch207: glibc-upstream-2.34-140.patch
+Patch208: glibc-upstream-2.34-141.patch
+Patch209: glibc-upstream-2.34-142.patch
+Patch210: glibc-upstream-2.34-143.patch
+Patch211: glibc-upstream-2.34-144.patch
+Patch212: glibc-upstream-2.34-145.patch
+Patch213: glibc-upstream-2.34-146.patch
+Patch214: glibc-upstream-2.34-147.patch
+Patch215: glibc-upstream-2.34-148.patch
+Patch216: glibc-upstream-2.34-149.patch
+Patch217: glibc-upstream-2.34-150.patch
+Patch218: glibc-upstream-2.34-151.patch
+Patch219: glibc-upstream-2.34-152.patch
+Patch220: glibc-upstream-2.34-153.patch
+Patch221: glibc-upstream-2.34-154.patch
+Patch222: glibc-upstream-2.34-155.patch
+Patch223: glibc-upstream-2.34-156.patch
+Patch224: glibc-upstream-2.34-157.patch
+Patch225: glibc-upstream-2.34-158.patch
+Patch226: glibc-upstream-2.34-159.patch
+Patch227: glibc-upstream-2.34-160.patch
 # glibc-2.34-161-gceed89d089 only changes NEWS.
-Patch228:             glibc-upstream-2.34-162.patch
-Patch229:             glibc-upstream-2.34-163.patch
-Patch230:             glibc-upstream-2.34-164.patch
-Patch231:             glibc-upstream-2.34-165.patch
-Patch232:             glibc-upstream-2.34-166.patch
-Patch233:             glibc-upstream-2.34-167.patch
-Patch234:             glibc-upstream-2.34-168.patch
-Patch235:             glibc-upstream-2.34-169.patch
-Patch236:             glibc-upstream-2.34-170.patch
-Patch237:             glibc-upstream-2.34-171.patch
-Patch238:             glibc-upstream-2.34-172.patch
-Patch239:             glibc-upstream-2.34-173.patch
-Patch240:             glibc-upstream-2.34-174.patch
-Patch241:             glibc-upstream-2.34-175.patch
-Patch242:             glibc-upstream-2.34-176.patch
-Patch243:             glibc-upstream-2.34-177.patch
-Patch244:             glibc-upstream-2.34-178.patch
-Patch245:             glibc-upstream-2.34-179.patch
-Patch246:             glibc-upstream-2.34-180.patch
-Patch247:             glibc-upstream-2.34-181.patch
-Patch248:             glibc-upstream-2.34-182.patch
-Patch249:             glibc-upstream-2.34-183.patch
-Patch250:             glibc-upstream-2.34-184.patch
-Patch251:             glibc-upstream-2.34-185.patch
-Patch252:             glibc-upstream-2.34-186.patch
-Patch253:             glibc-upstream-2.34-187.patch
-Patch254:             glibc-upstream-2.34-188.patch
-Patch255:             glibc-upstream-2.34-189.patch
-Patch256:             glibc-upstream-2.34-190.patch
-Patch257:             glibc-upstream-2.34-191.patch
-Patch258:             glibc-upstream-2.34-192.patch
-Patch259:             glibc-upstream-2.34-193.patch
-Patch260:             glibc-upstream-2.34-194.patch
-Patch261:             glibc-upstream-2.34-195.patch
-Patch262:             glibc-upstream-2.34-196.patch
-Patch263:             glibc-upstream-2.34-197.patch
-Patch264:             glibc-upstream-2.34-198.patch
-Patch265:             glibc-upstream-2.34-199.patch
-Patch266:             glibc-upstream-2.34-200.patch
-Patch267:             glibc-upstream-2.34-201.patch
-Patch268:             glibc-upstream-2.34-202.patch
-Patch269:             glibc-upstream-2.34-203.patch
-Patch270:             glibc-upstream-2.34-204.patch
-Patch271:             glibc-upstream-2.34-205.patch
-Patch272:             glibc-upstream-2.34-206.patch
-Patch273:             glibc-upstream-2.34-207.patch
-Patch274:             glibc-upstream-2.34-208.patch
-Patch275:             glibc-upstream-2.34-209.patch
-Patch276:             glibc-upstream-2.34-210.patch
-Patch277:             glibc-upstream-2.34-211.patch
-Patch278:             glibc-upstream-2.34-212.patch
-Patch279:             glibc-upstream-2.34-213.patch
-Patch280:             glibc-upstream-2.34-214.patch
-Patch281:             glibc-upstream-2.34-215.patch
-Patch282:             glibc-upstream-2.34-216.patch
-Patch283:             glibc-upstream-2.34-217.patch
-Patch284:             glibc-upstream-2.34-218.patch
-Patch285:             glibc-upstream-2.34-219.patch
-Patch286:             glibc-upstream-2.34-220.patch
-Patch287:             glibc-upstream-2.34-221.patch
-Patch288:             glibc-upstream-2.34-222.patch
-Patch289:             glibc-upstream-2.34-223.patch
-Patch290:             glibc-upstream-2.34-224.patch
-Patch291:             glibc-upstream-2.34-225.patch
-Patch292:             glibc-upstream-2.34-226.patch
-Patch293:             glibc-upstream-2.34-227.patch
-Patch294:             glibc-upstream-2.34-228.patch
-Patch295:             glibc-upstream-2.34-229.patch
-Patch296:             glibc-upstream-2.34-230.patch
-Patch297:             glibc-upstream-2.34-231.patch
-Patch298:             glibc-upstream-2.34-232.patch
-Patch299:             glibc-upstream-2.34-233.patch
-Patch300:             glibc-upstream-2.34-234.patch
-Patch301:             glibc-upstream-2.34-235.patch
-Patch302:             glibc-upstream-2.34-236.patch
-Patch303:             glibc-upstream-2.34-237.patch
-Patch304:             glibc-upstream-2.34-238.patch
-Patch305:             glibc-upstream-2.34-239.patch
-Patch306:             glibc-upstream-2.34-240.patch
-Patch307:             glibc-upstream-2.34-241.patch
-Patch308:             glibc-upstream-2.34-242.patch
-Patch309:             glibc-upstream-2.34-243.patch
-Patch310:             glibc-upstream-2.34-244.patch
-Patch311:             glibc-upstream-2.34-245.patch
-Patch312:             glibc-upstream-2.34-246.patch
-Patch313:             glibc-upstream-2.34-247.patch
-Patch314:             glibc-upstream-2.34-248.patch
-Patch315:             glibc-upstream-2.34-249.patch
-Patch316:             glibc-upstream-2.34-250.patch
-Patch317:             glibc-upstream-2.34-251.patch
-Patch318:             glibc-upstream-2.34-252.patch
-Patch319:             glibc-upstream-2.34-253.patch
-Patch320:             glibc-upstream-2.34-254.patch
-Patch321:             glibc-upstream-2.34-255.patch
-Patch322:             glibc-upstream-2.34-256.patch
-Patch323:             glibc-upstream-2.34-257.patch
-Patch324:             glibc-upstream-2.34-258.patch
-Patch325:             glibc-upstream-2.34-259.patch
-Patch326:             glibc-upstream-2.34-260.patch
-Patch327:             glibc-upstream-2.34-261.patch
-Patch328:             glibc-upstream-2.34-262.patch
-Patch329:             glibc-upstream-2.34-263.patch
-Patch330:             glibc-upstream-2.34-264.patch
-Patch331:             glibc-upstream-2.34-265.patch
-Patch332:             glibc-upstream-2.34-266.patch
-Patch333:             glibc-upstream-2.34-267.patch
-Patch334:             glibc-upstream-2.34-268.patch
-Patch335:             glibc-rh2085529-1.patch
-Patch336:             glibc-rh2085529-2.patch
-Patch337:             glibc-rh2085529-3.patch
-Patch338:             glibc-rh2085529-4.patch
-Patch339:             glibc-upstream-2.34-269.patch
-Patch340:             glibc-upstream-2.34-270.patch
-Patch341:             glibc-upstream-2.34-271.patch
-Patch342:             glibc-upstream-2.34-272.patch
-Patch343:             glibc-upstream-2.34-273.patch
-Patch344:             glibc-rh2096191-1.patch
-Patch345:             glibc-rh2096191-2.patch
-Patch346:             glibc-upstream-2.34-274.patch
-Patch347:             glibc-upstream-2.34-275.patch
-Patch348:             glibc-upstream-2.34-276.patch
-Patch349:             glibc-upstream-2.34-277.patch
-Patch350:             glibc-upstream-2.34-278.patch
-Patch351:             glibc-upstream-2.34-279.patch
-Patch352:             glibc-upstream-2.34-280.patch
-Patch353:             glibc-upstream-2.34-281.patch
-Patch354:             glibc-upstream-2.34-282.patch
-Patch355:             glibc-upstream-2.34-283.patch
-Patch356:             glibc-upstream-2.34-284.patch
-Patch357:             glibc-upstream-2.34-285.patch
-Patch358:             glibc-upstream-2.34-286.patch
-Patch359:             glibc-upstream-2.34-287.patch
-Patch360:             glibc-upstream-2.34-288.patch
-Patch361:             glibc-upstream-2.34-289.patch
-Patch362:             glibc-upstream-2.34-290.patch
-Patch363:             glibc-upstream-2.34-291.patch
-Patch364:             glibc-upstream-2.34-292.patch
-Patch365:             glibc-upstream-2.34-293.patch
-Patch366:             glibc-upstream-2.34-294.patch
-Patch367:             glibc-upstream-2.34-295.patch
-Patch368:             glibc-upstream-2.34-296.patch
-Patch369:             glibc-upstream-2.34-297.patch
-Patch370:             glibc-upstream-2.34-298.patch
-Patch371:             glibc-upstream-2.34-299.patch
-Patch372:             glibc-upstream-2.34-300.patch
-Patch373:             glibc-upstream-2.34-301.patch
-Patch374:             glibc-upstream-2.34-302.patch
-Patch375:             glibc-upstream-2.34-303.patch
-Patch376:             glibc-upstream-2.34-304.patch
-Patch377:             glibc-upstream-2.34-305.patch
-Patch378:             glibc-upstream-2.34-306.patch
-Patch379:             glibc-upstream-2.34-307.patch
-Patch380:             glibc-upstream-2.34-308.patch
-Patch381:             glibc-rh2118666.patch
-Patch382:             glibc-rh2128615-1.patch
-Patch383:             glibc-rh2128615-2.patch
-Patch384:             glibc-rh2128615-3.patch
-Patch385:             glibc-rh2117712-1.patch
-Patch386:             glibc-rh2117712-2.patch
-Patch387:             glibc-rh2117712-3.patch
-Patch388:             glibc-rh2117712-4.patch
-Patch389:             glibc-rh2117712-5.patch
-Patch390:             glibc-rh2117712-6.patch
-Patch391:             glibc-upstream-2.34-309.patch
-Patch392:             glibc-upstream-2.34-310.patch
-Patch393:             glibc-upstream-2.34-311.patch
-Patch394:             glibc-upstream-2.34-312.patch
+Patch228: glibc-upstream-2.34-162.patch
+Patch229: glibc-upstream-2.34-163.patch
+Patch230: glibc-upstream-2.34-164.patch
+Patch231: glibc-upstream-2.34-165.patch
+Patch232: glibc-upstream-2.34-166.patch
+Patch233: glibc-upstream-2.34-167.patch
+Patch234: glibc-upstream-2.34-168.patch
+Patch235: glibc-upstream-2.34-169.patch
+Patch236: glibc-upstream-2.34-170.patch
+Patch237: glibc-upstream-2.34-171.patch
+Patch238: glibc-upstream-2.34-172.patch
+Patch239: glibc-upstream-2.34-173.patch
+Patch240: glibc-upstream-2.34-174.patch
+Patch241: glibc-upstream-2.34-175.patch
+Patch242: glibc-upstream-2.34-176.patch
+Patch243: glibc-upstream-2.34-177.patch
+Patch244: glibc-upstream-2.34-178.patch
+Patch245: glibc-upstream-2.34-179.patch
+Patch246: glibc-upstream-2.34-180.patch
+Patch247: glibc-upstream-2.34-181.patch
+Patch248: glibc-upstream-2.34-182.patch
+Patch249: glibc-upstream-2.34-183.patch
+Patch250: glibc-upstream-2.34-184.patch
+Patch251: glibc-upstream-2.34-185.patch
+Patch252: glibc-upstream-2.34-186.patch
+Patch253: glibc-upstream-2.34-187.patch
+Patch254: glibc-upstream-2.34-188.patch
+Patch255: glibc-upstream-2.34-189.patch
+Patch256: glibc-upstream-2.34-190.patch
+Patch257: glibc-upstream-2.34-191.patch
+Patch258: glibc-upstream-2.34-192.patch
+Patch259: glibc-upstream-2.34-193.patch
+Patch260: glibc-upstream-2.34-194.patch
+Patch261: glibc-upstream-2.34-195.patch
+Patch262: glibc-upstream-2.34-196.patch
+Patch263: glibc-upstream-2.34-197.patch
+Patch264: glibc-upstream-2.34-198.patch
+Patch265: glibc-upstream-2.34-199.patch
+Patch266: glibc-upstream-2.34-200.patch
+Patch267: glibc-upstream-2.34-201.patch
+Patch268: glibc-upstream-2.34-202.patch
+Patch269: glibc-upstream-2.34-203.patch
+Patch270: glibc-upstream-2.34-204.patch
+Patch271: glibc-upstream-2.34-205.patch
+Patch272: glibc-upstream-2.34-206.patch
+Patch273: glibc-upstream-2.34-207.patch
+Patch274: glibc-upstream-2.34-208.patch
+Patch275: glibc-upstream-2.34-209.patch
+Patch276: glibc-upstream-2.34-210.patch
+Patch277: glibc-upstream-2.34-211.patch
+Patch278: glibc-upstream-2.34-212.patch
+Patch279: glibc-upstream-2.34-213.patch
+Patch280: glibc-upstream-2.34-214.patch
+Patch281: glibc-upstream-2.34-215.patch
+Patch282: glibc-upstream-2.34-216.patch
+Patch283: glibc-upstream-2.34-217.patch
+Patch284: glibc-upstream-2.34-218.patch
+Patch285: glibc-upstream-2.34-219.patch
+Patch286: glibc-upstream-2.34-220.patch
+Patch287: glibc-upstream-2.34-221.patch
+Patch288: glibc-upstream-2.34-222.patch
+Patch289: glibc-upstream-2.34-223.patch
+Patch290: glibc-upstream-2.34-224.patch
+Patch291: glibc-upstream-2.34-225.patch
+Patch292: glibc-upstream-2.34-226.patch
+Patch293: glibc-upstream-2.34-227.patch
+Patch294: glibc-upstream-2.34-228.patch
+Patch295: glibc-upstream-2.34-229.patch
+Patch296: glibc-upstream-2.34-230.patch
+Patch297: glibc-upstream-2.34-231.patch
+Patch298: glibc-upstream-2.34-232.patch
+Patch299: glibc-upstream-2.34-233.patch
+Patch300: glibc-upstream-2.34-234.patch
+Patch301: glibc-upstream-2.34-235.patch
+Patch302: glibc-upstream-2.34-236.patch
+Patch303: glibc-upstream-2.34-237.patch
+Patch304: glibc-upstream-2.34-238.patch
+Patch305: glibc-upstream-2.34-239.patch
+Patch306: glibc-upstream-2.34-240.patch
+Patch307: glibc-upstream-2.34-241.patch
+Patch308: glibc-upstream-2.34-242.patch
+Patch309: glibc-upstream-2.34-243.patch
+Patch310: glibc-upstream-2.34-244.patch
+Patch311: glibc-upstream-2.34-245.patch
+Patch312: glibc-upstream-2.34-246.patch
+Patch313: glibc-upstream-2.34-247.patch
+Patch314: glibc-upstream-2.34-248.patch
+Patch315: glibc-upstream-2.34-249.patch
+Patch316: glibc-upstream-2.34-250.patch
+Patch317: glibc-upstream-2.34-251.patch
+Patch318: glibc-upstream-2.34-252.patch
+Patch319: glibc-upstream-2.34-253.patch
+Patch320: glibc-upstream-2.34-254.patch
+Patch321: glibc-upstream-2.34-255.patch
+Patch322: glibc-upstream-2.34-256.patch
+Patch323: glibc-upstream-2.34-257.patch
+Patch324: glibc-upstream-2.34-258.patch
+Patch325: glibc-upstream-2.34-259.patch
+Patch326: glibc-upstream-2.34-260.patch
+Patch327: glibc-upstream-2.34-261.patch
+Patch328: glibc-upstream-2.34-262.patch
+Patch329: glibc-upstream-2.34-263.patch
+Patch330: glibc-upstream-2.34-264.patch
+Patch331: glibc-upstream-2.34-265.patch
+Patch332: glibc-upstream-2.34-266.patch
+Patch333: glibc-upstream-2.34-267.patch
+Patch334: glibc-upstream-2.34-268.patch
+Patch335: glibc-rh2085529-1.patch
+Patch336: glibc-rh2085529-2.patch
+Patch337: glibc-rh2085529-3.patch
+Patch338: glibc-rh2085529-4.patch
+Patch339: glibc-upstream-2.34-269.patch
+Patch340: glibc-upstream-2.34-270.patch
+Patch341: glibc-upstream-2.34-271.patch
+Patch342: glibc-upstream-2.34-272.patch
+Patch343: glibc-upstream-2.34-273.patch
+Patch344: glibc-rh2096191-1.patch
+Patch345: glibc-rh2096191-2.patch
+Patch346: glibc-upstream-2.34-274.patch
+Patch347: glibc-upstream-2.34-275.patch
+Patch348: glibc-upstream-2.34-276.patch
+Patch349: glibc-upstream-2.34-277.patch
+Patch350: glibc-upstream-2.34-278.patch
+Patch351: glibc-upstream-2.34-279.patch
+Patch352: glibc-upstream-2.34-280.patch
+Patch353: glibc-upstream-2.34-281.patch
+Patch354: glibc-upstream-2.34-282.patch
+Patch355: glibc-upstream-2.34-283.patch
+Patch356: glibc-upstream-2.34-284.patch
+Patch357: glibc-upstream-2.34-285.patch
+Patch358: glibc-upstream-2.34-286.patch
+Patch359: glibc-upstream-2.34-287.patch
+Patch360: glibc-upstream-2.34-288.patch
+Patch361: glibc-upstream-2.34-289.patch
+Patch362: glibc-upstream-2.34-290.patch
+Patch363: glibc-upstream-2.34-291.patch
+Patch364: glibc-upstream-2.34-292.patch
+Patch365: glibc-upstream-2.34-293.patch
+Patch366: glibc-upstream-2.34-294.patch
+Patch367: glibc-upstream-2.34-295.patch
+Patch368: glibc-upstream-2.34-296.patch
+Patch369: glibc-upstream-2.34-297.patch
+Patch370: glibc-upstream-2.34-298.patch
+Patch371: glibc-upstream-2.34-299.patch
+Patch372: glibc-upstream-2.34-300.patch
+Patch373: glibc-upstream-2.34-301.patch
+Patch374: glibc-upstream-2.34-302.patch
+Patch375: glibc-upstream-2.34-303.patch
+Patch376: glibc-upstream-2.34-304.patch
+Patch377: glibc-upstream-2.34-305.patch
+Patch378: glibc-upstream-2.34-306.patch
+Patch379: glibc-upstream-2.34-307.patch
+Patch380: glibc-upstream-2.34-308.patch
+Patch381: glibc-rh2118666.patch
+Patch382: glibc-rh2128615-1.patch
+Patch383: glibc-rh2128615-2.patch
+Patch384: glibc-rh2128615-3.patch
+Patch385: glibc-rh2117712-1.patch
+Patch386: glibc-rh2117712-2.patch
+Patch387: glibc-rh2117712-3.patch
+Patch388: glibc-rh2117712-4.patch
+Patch389: glibc-rh2117712-5.patch
+Patch390: glibc-rh2117712-6.patch
+Patch391: glibc-upstream-2.34-309.patch
+Patch392: glibc-upstream-2.34-310.patch
+Patch393: glibc-upstream-2.34-311.patch
+Patch394: glibc-upstream-2.34-312.patch
 # glibc-2.34-313-gbc5cb538e5 backported above as glibc-rh2118666.patch.
-Patch395:             glibc-upstream-2.34-314.patch
-Patch396:             glibc-upstream-2.34-315.patch
-Patch397:             glibc-upstream-2.34-316.patch
-Patch398:             glibc-upstream-2.34-317.patch
-Patch399:             glibc-upstream-2.34-318.patch
-Patch400:             glibc-upstream-2.34-319.patch
-Patch401:             glibc-upstream-2.34-320.patch
-Patch402:             glibc-upstream-2.34-321.patch
-Patch403:             glibc-upstream-2.34-322.patch
-Patch404:             glibc-upstream-2.34-323.patch
-Patch405:             glibc-upstream-2.34-324.patch
-Patch406:             glibc-upstream-2.34-325.patch
-Patch407:             glibc-upstream-2.34-326.patch
-Patch408:             glibc-upstream-2.34-327.patch
+Patch395: glibc-upstream-2.34-314.patch
+Patch396: glibc-upstream-2.34-315.patch
+Patch397: glibc-upstream-2.34-316.patch
+Patch398: glibc-upstream-2.34-317.patch
+Patch399: glibc-upstream-2.34-318.patch
+Patch400: glibc-upstream-2.34-319.patch
+Patch401: glibc-upstream-2.34-320.patch
+Patch402: glibc-upstream-2.34-321.patch
+Patch403: glibc-upstream-2.34-322.patch
+Patch404: glibc-upstream-2.34-323.patch
+Patch405: glibc-upstream-2.34-324.patch
+Patch406: glibc-upstream-2.34-325.patch
+Patch407: glibc-upstream-2.34-326.patch
+Patch408: glibc-upstream-2.34-327.patch
 # glibc-2.34-328-g2def56a349 conflicts with glibc-rh2096191-2.patch;
 # glibc-rh2129005.patch contains the original master branch commit instead.
-Patch409:             glibc-rh2129005.patch
-Patch410:             glibc-upstream-2.34-329.patch
-Patch411:             glibc-upstream-2.34-330.patch
-Patch412:             glibc-upstream-2.34-331.patch
-Patch413:             glibc-upstream-2.34-332.patch
-Patch414:             glibc-upstream-2.34-333.patch
-Patch415:             glibc-upstream-2.34-334.patch
-Patch416:             glibc-upstream-2.34-335.patch
-Patch417:             glibc-upstream-2.34-336.patch
-Patch418:             glibc-upstream-2.34-337.patch
-Patch419:             glibc-upstream-2.34-338.patch
-Patch420:             glibc-upstream-2.34-339.patch
-Patch421:             glibc-upstream-2.34-340.patch
-Patch422:             glibc-upstream-2.34-341.patch
-Patch423:             glibc-upstream-2.34-342.patch
-Patch424:             glibc-upstream-2.34-343.patch
-Patch425:             glibc-upstream-2.34-344.patch
-Patch426:             glibc-upstream-2.34-345.patch
-Patch427:             glibc-upstream-2.34-346.patch
-Patch428:             glibc-upstream-2.34-347.patch
-Patch429:             glibc-upstream-2.34-348.patch
-Patch430:             glibc-upstream-2.34-349.patch
-Patch431:             glibc-upstream-2.34-350.patch
-Patch432:             glibc-upstream-2.34-351.patch
-Patch433:             glibc-upstream-2.34-352.patch
-Patch434:             glibc-upstream-2.34-353.patch
-Patch435:             glibc-upstream-2.34-354.patch
-Patch436:             glibc-upstream-2.34-355.patch
-Patch437:             glibc-upstream-2.34-356.patch
-Patch438:             glibc-upstream-2.34-357.patch
-Patch439:             glibc-upstream-2.34-358.patch
-Patch440:             glibc-upstream-2.34-359.patch
+Patch409: glibc-rh2129005.patch
+Patch410: glibc-upstream-2.34-329.patch
+Patch411: glibc-upstream-2.34-330.patch
+Patch412: glibc-upstream-2.34-331.patch
+Patch413: glibc-upstream-2.34-332.patch
+Patch414: glibc-upstream-2.34-333.patch
+Patch415: glibc-upstream-2.34-334.patch
+Patch416: glibc-upstream-2.34-335.patch
+Patch417: glibc-upstream-2.34-336.patch
+Patch418: glibc-upstream-2.34-337.patch
+Patch419: glibc-upstream-2.34-338.patch
+Patch420: glibc-upstream-2.34-339.patch
+Patch421: glibc-upstream-2.34-340.patch
+Patch422: glibc-upstream-2.34-341.patch
+Patch423: glibc-upstream-2.34-342.patch
+Patch424: glibc-upstream-2.34-343.patch
+Patch425: glibc-upstream-2.34-344.patch
+Patch426: glibc-upstream-2.34-345.patch
+Patch427: glibc-upstream-2.34-346.patch
+Patch428: glibc-upstream-2.34-347.patch
+Patch429: glibc-upstream-2.34-348.patch
+Patch430: glibc-upstream-2.34-349.patch
+Patch431: glibc-upstream-2.34-350.patch
+Patch432: glibc-upstream-2.34-351.patch
+Patch433: glibc-upstream-2.34-352.patch
+Patch434: glibc-upstream-2.34-353.patch
+Patch435: glibc-upstream-2.34-354.patch
+Patch436: glibc-upstream-2.34-355.patch
+Patch437: glibc-upstream-2.34-356.patch
+Patch438: glibc-upstream-2.34-357.patch
+Patch439: glibc-upstream-2.34-358.patch
+Patch440: glibc-upstream-2.34-359.patch
 # glibc-2.34-360-g75b0edb7ef only changes NEWS.
-Patch441:             glibc-upstream-2.34-361.patch
-Patch442:             glibc-upstream-2.34-362.patch
-Patch443:             glibc-upstream-2.34-363.patch
-Patch444:             glibc-upstream-2.34-364.patch
-Patch445:             glibc-upstream-2.34-365.patch
-Patch446:             glibc-rh2149102.patch
-Patch447:             glibc-upstream-2.34-366.patch
-Patch448:             glibc-upstream-2.34-367.patch
-Patch449:             glibc-upstream-2.34-368.patch
-Patch450:             glibc-upstream-2.34-369.patch
-Patch451:             glibc-upstream-2.34-370.patch
-Patch452:             glibc-upstream-2.34-371.patch
-Patch453:             glibc-upstream-2.34-372.patch
-Patch454:             glibc-upstream-2.34-373.patch
-Patch455:             glibc-upstream-2.34-374.patch
-Patch456:             glibc-upstream-2.34-375.patch
-Patch457:             glibc-upstream-2.34-376.patch
-Patch458:             glibc-upstream-2.34-377.patch
-Patch459:             glibc-upstream-2.34-378.patch
-Patch460:             glibc-upstream-2.34-379.patch
-Patch461:             glibc-upstream-2.34-380.patch
-Patch462:             glibc-upstream-2.34-381.patch
-Patch463:             glibc-upstream-2.34-382.patch
-Patch464:             glibc-upstream-2.34-383.patch
-Patch465:             glibc-upstream-2.34-384.patch
-Patch466:             glibc-rh2162962.patch
-Patch467:             glibc-upstream-2.34-385.patch
-Patch468:             glibc-upstream-2.34-386.patch
+Patch441: glibc-upstream-2.34-361.patch
+Patch442: glibc-upstream-2.34-362.patch
+Patch443: glibc-upstream-2.34-363.patch
+Patch444: glibc-upstream-2.34-364.patch
+Patch445: glibc-upstream-2.34-365.patch
+Patch446: glibc-rh2149102.patch
+Patch447: glibc-upstream-2.34-366.patch
+Patch448: glibc-upstream-2.34-367.patch
+Patch449: glibc-upstream-2.34-368.patch
+Patch450: glibc-upstream-2.34-369.patch
+Patch451: glibc-upstream-2.34-370.patch
+Patch452: glibc-upstream-2.34-371.patch
+Patch453: glibc-upstream-2.34-372.patch
+Patch454: glibc-upstream-2.34-373.patch
+Patch455: glibc-upstream-2.34-374.patch
+Patch456: glibc-upstream-2.34-375.patch
+Patch457: glibc-upstream-2.34-376.patch
+Patch458: glibc-upstream-2.34-377.patch
+Patch459: glibc-upstream-2.34-378.patch
+Patch460: glibc-upstream-2.34-379.patch
+Patch461: glibc-upstream-2.34-380.patch
+Patch462: glibc-upstream-2.34-381.patch
+Patch463: glibc-upstream-2.34-382.patch
+Patch464: glibc-upstream-2.34-383.patch
+Patch465: glibc-upstream-2.34-384.patch
+Patch466: glibc-rh2162962.patch
+Patch467: glibc-upstream-2.34-385.patch
+Patch468: glibc-upstream-2.34-386.patch
 # glibc-upstream-2.34-387.patch is a NEWS-only update.  Skipped downstream.
-Patch469:             glibc-upstream-2.34-388.patch
-Patch470:             glibc-upstream-2.34-389.patch
-Patch471:             glibc-rh2172953.patch
-Patch472:             glibc-rh2149615-1.patch
-Patch473:             glibc-rh2149615-2.patch
-Patch474:             glibc-rh2169978-1.patch
-Patch475:             glibc-rh2169978-2.patch
-Patch476:             glibc-rh2149615-3.patch
-Patch477:             glibc-rh2166710.patch
+Patch469: glibc-upstream-2.34-388.patch
+Patch470: glibc-upstream-2.34-389.patch
+Patch471: glibc-rh2172953.patch
+Patch472: glibc-rh2149615-1.patch
+Patch473: glibc-rh2149615-2.patch
+Patch474: glibc-rh2169978-1.patch
+Patch475: glibc-rh2169978-2.patch
+Patch476: glibc-rh2149615-3.patch
+Patch477: glibc-rh2166710.patch
 # glibc-upstream-2.34-390.patch backported above as glibc-rh2172953.patch.
-Patch478:             glibc-upstream-2.34-391.patch
-Patch479:             glibc-upstream-2.34-392.patch
-Patch480:             glibc-upstream-2.34-393.patch
-Patch481:             glibc-upstream-2.34-394.patch
-Patch482:             glibc-upstream-2.34-395.patch
-Patch483:             glibc-upstream-2.34-396.patch
-Patch484:             glibc-upstream-2.34-397.patch
+Patch478: glibc-upstream-2.34-391.patch
+Patch479: glibc-upstream-2.34-392.patch
+Patch480: glibc-upstream-2.34-393.patch
+Patch481: glibc-upstream-2.34-394.patch
+Patch482: glibc-upstream-2.34-395.patch
+Patch483: glibc-upstream-2.34-396.patch
+Patch484: glibc-upstream-2.34-397.patch
 # glibc-upstream-2.34-398.patch not backported because we can avoid the
 # ABI tunable issue downstream, using @order directives.
 
 # This marks the end of backports via upstream release/2.34/master.
 # All future backports need maintain CentOS 9 Stream and RHEL 9 only.
 
-Patch485:             glibc-rh2215368.patch
-Patch486:             glibc-rh2213908.patch
-Patch487:             glibc-rh2189923.patch
-Patch488:             glibc-RHEL-729.patch
-Patch489:             glibc-rh2222188-1.patch
-Patch490:             glibc-rh2222188-2.patch
-Patch491:             glibc-rh2222188-3.patch
-Patch492:             glibc-rh2222188-4.patch
-Patch493:             glibc-rh2222188-5.patch
-Patch494:             glibc-rh2224289-1.patch
-Patch495:             glibc-rh2224289-2.patch
-Patch496:             glibc-rh2224349.patch
-Patch497:             glibc-rh2224289-3.patch
-Patch498:             glibc-rh2224504-1.patch
-Patch499:             glibc-rh2224504-2.patch
-Patch500:             glibc-rh2213907-1.patch
-Patch501:             glibc-rh2213907-2.patch
-Patch502:             glibc-rh2213907-3.patch
-Patch503:             glibc-rh2213907-4.patch
-Patch504:             glibc-rh2213907-5.patch
-Patch505:             glibc-rh2213907-6.patch
-Patch506:             glibc-rh2166710-2.patch
-Patch507:             glibc-rh2166710-3.patch
-Patch508:             glibc-rh2222188-6.patch
-Patch509:             glibc-rh2213907-7.patch
-Patch510:             glibc-RHEL-1017-1.patch
-Patch511:             glibc-RHEL-1017-2.patch
-Patch512:             glibc-RHEL-1017-3.patch
-Patch513:             glibc-RHEL-1017-4.patch
+Patch485: glibc-rh2215368.patch
+Patch486: glibc-rh2213908.patch
+Patch487: glibc-rh2189923.patch
+Patch488: glibc-RHEL-729.patch
+Patch489: glibc-rh2222188-1.patch
+Patch490: glibc-rh2222188-2.patch
+Patch491: glibc-rh2222188-3.patch
+Patch492: glibc-rh2222188-4.patch
+Patch493: glibc-rh2222188-5.patch
+Patch494: glibc-rh2224289-1.patch
+Patch495: glibc-rh2224289-2.patch
+Patch496: glibc-rh2224349.patch
+Patch497: glibc-rh2224289-3.patch
+Patch498: glibc-rh2224504-1.patch
+Patch499: glibc-rh2224504-2.patch
+Patch500: glibc-rh2213907-1.patch
+Patch501: glibc-rh2213907-2.patch
+Patch502: glibc-rh2213907-3.patch
+Patch503: glibc-rh2213907-4.patch
+Patch504: glibc-rh2213907-5.patch
+Patch505: glibc-rh2213907-6.patch
+Patch506: glibc-rh2166710-2.patch
+Patch507: glibc-rh2166710-3.patch
+Patch508: glibc-rh2222188-6.patch
+Patch509: glibc-rh2213907-7.patch
+Patch510: glibc-RHEL-1017-1.patch
+Patch511: glibc-RHEL-1017-2.patch
+Patch512: glibc-RHEL-1017-3.patch
+Patch513: glibc-RHEL-1017-4.patch
 # (Reverted fixes for RHEL-2491 were here.)
-Patch519:             glibc-rh2234716.patch
-Patch520:             glibc-RHEL-2438.patch
-Patch521:             glibc-RHEL-2426-1.patch
-Patch522:             glibc-RHEL-2426-2.patch
-Patch523:             glibc-RHEL-2426-3.patch
-Patch524:             glibc-RHEL-2426-4.patch
-Patch525:             glibc-RHEL-2426-5.patch
-Patch526:             glibc-RHEL-2426-6.patch
-Patch527:             glibc-RHEL-2426-7.patch
-Patch528:             glibc-RHEL-2426-8.patch
-Patch529:             glibc-RHEL-2426-9.patch
-Patch530:             glibc-RHEL-2426-10.patch
-Patch531:             glibc-RHEL-2426-11.patch
-Patch532:             glibc-RHEL-2426-12.patch
-Patch533:             glibc-RHEL-2426-13.patch
-Patch534:             glibc-RHEL-3000.patch
-Patch535:             glibc-RHEL-2426-14.patch
-Patch536:             glibc-RHEL-2426-15.patch
-Patch537:             glibc-RHEL-1191.patch
-Patch538:             glibc-RHEL-3397.patch
-Patch539:             glibc-RHEL-2123.patch
-Patch540:             glibc-RHEL-16275.patch
-Patch541:             glibc-RHEL-2491.patch
-Patch542:             glibc-RHEL-14383-1.patch
-Patch543:             glibc-RHEL-14383-2.patch
-Patch544:             glibc-RHEL-2338-1.patch
-Patch545:             glibc-RHEL-2338-2.patch
-Patch546:             glibc-RHEL-2338-3.patch
-Patch547:             glibc-RHEL-2338-4.patch
-Patch548:             glibc-RHEL-15343-1.patch
-Patch549:             glibc-RHEL-15343-2.patch
-Patch550:             glibc-RHEL-15343-3.patch
-Patch551:             glibc-RHEL-15343-4.patch
-Patch552:             glibc-rhel-17157.patch
-Patch553:             glibc-RHEL-16016-1.patch
-Patch554:             glibc-RHEL-16016-2.patch
-Patch555:             glibc-RHEL-16016-3.patch
-Patch556:             glibc-RHEL-16016-4.patch
-Patch557:             glibc-RHEL-16016-5.patch
-Patch558:             glibc-RHEL-16016-6.patch
-Patch559:             glibc-RHEL-16016-7.patch
-Patch560:             glibc-RHEL-17319-1.patch
-Patch561:             glibc-RHEL-17319-2.patch
-Patch562:             glibc-RHEL-17319-3.patch
-Patch563:             glibc-RHEL-17319-4.patch
-Patch564:             glibc-RHEL-17465-1.patch
-Patch565:             glibc-RHEL-17465-2.patch
-Patch566:             glibc-RHEL-19862.patch
-Patch567:             glibc-RHEL-16643-1.patch
-Patch568:             glibc-RHEL-16643-2.patch
-Patch569:             glibc-RHEL-16643-3.patch
-Patch570:             glibc-RHEL-16643-4.patch
-Patch571:             glibc-RHEL-16643-5.patch
-Patch572:             glibc-RHEL-16643-6.patch
-Patch573:             glibc-RHEL-19444.patch
-Patch574:             glibc-RHEL-21556.patch
-Patch575:             glibc-RHEL-23472.patch
-Patch576:             glibc-RHEL-20172-1.patch
-Patch577:             glibc-RHEL-20172-2.patch
-Patch578:             glibc-RHEL-21884.patch
-Patch579:             glibc-RHEL-25531-1.patch
-Patch580:             glibc-RHEL-25531-2.patch
-Patch581:             glibc-RHEL-25531-3.patch
-Patch582:             glibc-RHEL-25531-4.patch
-Patch583:             glibc-RHEL-25046.patch
-Patch584:             glibc-RHEL-32681-1.patch
-Patch585:             glibc-RHEL-32681-2.patch
-Patch586:             glibc-RHEL-39006.patch
-Patch587:             glibc-RHEL-22165-1.patch
-Patch588:             glibc-RHEL-22165-2.patch
-Patch589:             glibc-RHEL-22165-3.patch
-Patch590:             glibc-RHEL-22165-4.patch
-Patch591:             glibc-RHEL-22165-5.patch
-Patch592:             glibc-RHEL-31805.patch
-Patch593:             glibc-RHEL-25063.patch
-Patch594:             glibc-RHEL-34265.patch
-Patch595:             glibc-RHEL-34268-1.patch
-Patch596:             glibc-RHEL-34268-2.patch
-Patch597:             glibc-RHEL-34272-1.patch
-Patch598:             glibc-RHEL-34272-2.patch
-Patch599:             glibc-RHEL-39000-1.patch
-Patch600:             glibc-RHEL-39000-2.patch
-Patch601:             glibc-RHEL-39000-3.patch
-Patch602:             glibc-RHEL-39992-1.patch
-Patch603:             glibc-RHEL-39992-2.patch
-Patch604:             glibc-RHEL-30823.patch
-Patch605:             glibc-RHEL-25257-1.patch
-Patch606:             glibc-RHEL-25257-2.patch
-Patch607:             glibc-RHEL-46741-1.patch
-Patch608:             glibc-RHEL-46741-2.patch
-Patch609:             glibc-RHEL-50101-1.patch
-Patch610:             glibc-RHEL-50101-2.patch
-Patch611:             glibc-RHEL-50101-3.patch
-Patch612:             glibc-RHEL-54007.patch
-Patch613:             glibc-RHEL-46723-1.patch
-Patch614:             glibc-RHEL-46723-2.patch
-Patch615:             glibc-RHEL-36148-1.patch
-Patch616:             glibc-RHEL-36148-2.patch
-Patch617:             glibc-RHEL-36148-3.patch
-Patch618:             glibc-RHEL-49489-1.patch
-Patch619:             glibc-RHEL-49489-2.patch
-Patch620:             glibc-RHEL-54447-1.patch
-Patch621:             glibc-RHEL-54447-2.patch
-Patch622:             glibc-RHEL-54447-3.patch
-Patch623:             glibc-RHEL-54447-4.patch
-Patch624:             glibc-RHEL-54447-5.patch
-Patch625:             glibc-RHEL-54447-6.patch
-Patch626:             glibc-RHEL-54447-7.patch
-Patch627:             glibc-RHEL-54447-8.patch
-Patch628:             glibc-RHEL-54447-9.patch
-Patch629:             glibc-RHEL-54447-10.patch
-Patch630:             glibc-RHEL-46979-1.patch
-Patch631:             glibc-RHEL-46979-2.patch
-Patch632:             glibc-RHEL-46979-3.patch
-Patch633:             glibc-RHEL-46979-4.patch
-Patch634:             glibc-RHEL-49489-3.patch
-Patch635:             glibc-RHEL-49489-4.patch
-Patch636:             glibc-2.34-upstream-rocky-assert-buffer-overflow-CVE-2025-0395.patch
+Patch519: glibc-rh2234716.patch
+Patch520: glibc-RHEL-2438.patch
+Patch521: glibc-RHEL-2426-1.patch
+Patch522: glibc-RHEL-2426-2.patch
+Patch523: glibc-RHEL-2426-3.patch
+Patch524: glibc-RHEL-2426-4.patch
+Patch525: glibc-RHEL-2426-5.patch
+Patch526: glibc-RHEL-2426-6.patch
+Patch527: glibc-RHEL-2426-7.patch
+Patch528: glibc-RHEL-2426-8.patch
+Patch529: glibc-RHEL-2426-9.patch
+Patch530: glibc-RHEL-2426-10.patch
+Patch531: glibc-RHEL-2426-11.patch
+Patch532: glibc-RHEL-2426-12.patch
+Patch533: glibc-RHEL-2426-13.patch
+Patch534: glibc-RHEL-3000.patch
+Patch535: glibc-RHEL-2426-14.patch
+Patch536: glibc-RHEL-2426-15.patch
+Patch537: glibc-RHEL-1191.patch
+Patch538: glibc-RHEL-3397.patch
+Patch539: glibc-RHEL-2123.patch
+Patch540: glibc-RHEL-16275.patch
+Patch541: glibc-RHEL-2491.patch
+Patch542: glibc-RHEL-14383-1.patch
+Patch543: glibc-RHEL-14383-2.patch
+Patch544: glibc-RHEL-2338-1.patch
+Patch545: glibc-RHEL-2338-2.patch
+Patch546: glibc-RHEL-2338-3.patch
+Patch547: glibc-RHEL-2338-4.patch
+Patch548: glibc-RHEL-15343-1.patch
+Patch549: glibc-RHEL-15343-2.patch
+Patch550: glibc-RHEL-15343-3.patch
+Patch551: glibc-RHEL-15343-4.patch
+Patch552: glibc-rhel-17157.patch
+Patch553: glibc-RHEL-16016-1.patch
+Patch554: glibc-RHEL-16016-2.patch
+Patch555: glibc-RHEL-16016-3.patch
+Patch556: glibc-RHEL-16016-4.patch
+Patch557: glibc-RHEL-16016-5.patch
+Patch558: glibc-RHEL-16016-6.patch
+Patch559: glibc-RHEL-16016-7.patch
+Patch560: glibc-RHEL-17319-1.patch
+Patch561: glibc-RHEL-17319-2.patch
+Patch562: glibc-RHEL-17319-3.patch
+Patch563: glibc-RHEL-17319-4.patch
+Patch564: glibc-RHEL-17465-1.patch
+Patch565: glibc-RHEL-17465-2.patch
+Patch566: glibc-RHEL-19862.patch
+Patch567: glibc-RHEL-16643-1.patch
+Patch568: glibc-RHEL-16643-2.patch
+Patch569: glibc-RHEL-16643-3.patch
+Patch570: glibc-RHEL-16643-4.patch
+Patch571: glibc-RHEL-16643-5.patch
+Patch572: glibc-RHEL-16643-6.patch
+Patch573: glibc-RHEL-19444.patch
+Patch574: glibc-RHEL-21556.patch
+Patch575: glibc-RHEL-23472.patch
+Patch576: glibc-RHEL-20172-1.patch
+Patch577: glibc-RHEL-20172-2.patch
+Patch578: glibc-RHEL-21884.patch
+Patch579: glibc-RHEL-25531-1.patch
+Patch580: glibc-RHEL-25531-2.patch
+Patch581: glibc-RHEL-25531-3.patch
+Patch582: glibc-RHEL-25531-4.patch
+Patch583: glibc-RHEL-25046.patch
+Patch584: glibc-RHEL-32681-1.patch
+Patch585: glibc-RHEL-32681-2.patch
+Patch586: glibc-RHEL-39006.patch
+Patch587: glibc-RHEL-22165-1.patch
+Patch588: glibc-RHEL-22165-2.patch
+Patch589: glibc-RHEL-22165-3.patch
+Patch590: glibc-RHEL-22165-4.patch
+Patch591: glibc-RHEL-22165-5.patch
+Patch592: glibc-RHEL-31805.patch
+Patch593: glibc-RHEL-25063.patch
+Patch594: glibc-RHEL-34265.patch
+Patch595: glibc-RHEL-34268-1.patch
+Patch596: glibc-RHEL-34268-2.patch
+Patch597: glibc-RHEL-34272-1.patch
+Patch598: glibc-RHEL-34272-2.patch
+Patch599: glibc-RHEL-39000-1.patch
+Patch600: glibc-RHEL-39000-2.patch
+Patch601: glibc-RHEL-39000-3.patch
+Patch602: glibc-RHEL-39992-1.patch
+Patch603: glibc-RHEL-39992-2.patch
+Patch604: glibc-RHEL-30823.patch
+Patch605: glibc-RHEL-25257-1.patch
+Patch606: glibc-RHEL-25257-2.patch
+Patch607: glibc-RHEL-46741-1.patch
+Patch608: glibc-RHEL-46741-2.patch
+Patch609: glibc-RHEL-50101-1.patch
+Patch610: glibc-RHEL-50101-2.patch
+Patch611: glibc-RHEL-50101-3.patch
+Patch612: glibc-RHEL-54007.patch
+Patch613: glibc-RHEL-46723-1.patch
+Patch614: glibc-RHEL-46723-2.patch
+Patch615: glibc-RHEL-36148-1.patch
+Patch616: glibc-RHEL-36148-2.patch
+Patch617: glibc-RHEL-36148-3.patch
+Patch618: glibc-RHEL-49489-1.patch
+Patch619: glibc-RHEL-49489-2.patch
+Patch620: glibc-RHEL-54447-1.patch
+Patch621: glibc-RHEL-54447-2.patch
+Patch622: glibc-RHEL-54447-3.patch
+Patch623: glibc-RHEL-54447-4.patch
+Patch624: glibc-RHEL-54447-5.patch
+Patch625: glibc-RHEL-54447-6.patch
+Patch626: glibc-RHEL-54447-7.patch
+Patch627: glibc-RHEL-54447-8.patch
+Patch628: glibc-RHEL-54447-9.patch
+Patch629: glibc-RHEL-54447-10.patch
+Patch630: glibc-RHEL-46979-1.patch
+Patch631: glibc-RHEL-46979-2.patch
+Patch632: glibc-RHEL-46979-3.patch
+Patch633: glibc-RHEL-46979-4.patch
+Patch634: glibc-RHEL-49489-3.patch
+Patch635: glibc-RHEL-49489-4.patch
+Patch636: glibc-RHEL-69003.patch
+Patch637: glibc-RHEL-78939-1.patch
+Patch638: glibc-RHEL-78939-2.patch
+Patch639: glibc-RHEL-78939-3.patch
+Patch640: glibc-RHEL-78939-4.patch
+Patch641: glibc-RHEL-78939-5.patch
+Patch642: glibc-RHEL-78939-6.patch
+Patch643: glibc-RHEL-78939-7.patch
+Patch644: glibc-RHEL-78939-8.patch
+Patch645: glibc-RHEL-78939-9.patch
+Patch646: glibc-RHEL-78939-10.patch
+Patch647: glibc-RHEL-70707-1.patch
+Patch648: glibc-RHEL-70707-2.patch
+Patch649: glibc-RHEL-70707-3.patch
+Patch650: glibc-RHEL-70707-4.patch
+Patch651: glibc-RHEL-84324.patch
+Patch652: glibc-RHEL-83294-1.patch
+Patch653: glibc-RHEL-83294-2.patch
+Patch654: glibc-RHEL-83294-3.patch
+Patch655: glibc-RHEL-65285-1.patch
+Patch656: glibc-RHEL-65285-2.patch
+Patch657: glibc-RHEL-65285-3.patch
+Patch658: glibc-RHEL-65285-4.patch
+Patch659: glibc-RHEL-65285-5.patch
+Patch660: glibc-RHEL-83524.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
 ##############################################################################
-Obsoletes:            glibc-profile < 2.4
-Provides:             ldconfig
+Obsoletes: glibc-profile < 2.4
+Provides: ldconfig
 
 # The dynamic linker supports DT_GNU_HASH
-Provides:             rtld(GNU_HASH)
+Provides: rtld(GNU_HASH)
 
 # We need libgcc for cancellation support in POSIX threads.
-Requires:             libgcc%{_isa}
+Requires: libgcc%{_isa}
 
-Requires:             glibc-common = %{version}-%{release}
+Requires: glibc-common = %{version}-%{release}
 
 # Various components (regex, glob) have been imported from gnulib.
-Provides:             bundled(gnulib)
+Provides: bundled(gnulib)
 
 Requires(pre): basesystem
-Requires:             basesystem
+Requires: basesystem
 
 %ifarch %{ix86}
 # Automatically install the 32-bit variant if the 64-bit variant has
 # been installed.  This covers the case when glibc.i686 is installed
 # after nss_*.x86_64.  (See below for the other ordering.)
-Recommends:           (nss_db(x86-32) if nss_db(x86-64))
-Recommends:           (nss_hesiod(x86-32) if nss_hesiod(x86-64))
+Recommends: (nss_db(x86-32) if nss_db(x86-64))
+Recommends: (nss_hesiod(x86-32) if nss_hesiod(x86-64))
 %endif
 
 # This is for building auxiliary programs like memusage, nscd
 # For initial glibc bootstraps it can be commented out
 %if %{without bootstrap}
-BuildRequires:        gd-devel libpng-devel zlib-devel
+BuildRequires: gd-devel libpng-devel zlib-devel
 %endif
 %if %{with docs}
 %endif
 %if %{without bootstrap}
-BuildRequires:        libselinux-devel >= 1.33.4-3
+BuildRequires: libselinux-devel >= 1.33.4-3
 %endif
-BuildRequires:        audit-libs-devel >= 1.1.3, sed >= 3.95, libcap-devel, gettext
+BuildRequires: audit-libs-devel >= 1.1.3, sed >= 3.95, libcap-devel, gettext
 # We need procps-ng (/bin/ps), util-linux (/bin/kill), and gawk (/bin/awk),
 # but it is more flexible to require the actual programs and let rpm infer
 # the packages. However, until bug 1259054 is widely fixed we avoid the
 # following:
 # BuildRequires: /bin/ps, /bin/kill, /bin/awk
 # And use instead (which should be reverted some time in the future):
-BuildRequires:        procps-ng, util-linux, gawk
-BuildRequires:        systemtap-sdt-devel
+BuildRequires: procps-ng, util-linux, gawk
+BuildRequires: systemtap-sdt-devel
 
 %if %{with valgrind}
 # Require valgrind for smoke testing the dynamic loader to make sure we
 # have not broken valgrind.
-BuildRequires:        valgrind
+BuildRequires: valgrind
 %endif
 
 # We use systemd rpm macros for nscd
-BuildRequires:        systemd systemd-rpm-macros
+BuildRequires: systemd systemd-rpm-macros
 
 # We use python for the microbenchmarks and locale data regeneration
 # from unicode sources (carried out manually). We choose python3
 # explicitly because it supports both use cases.  On some
 # distributions, python3 does not actually install /usr/bin/python3,
 # so we also depend on python3-devel.
-BuildRequires:        python3 python3-devel
+BuildRequires: python3 python3-devel
 
 # This GCC version is needed for -fstack-clash-protection support.
-BuildRequires:        gcc >= 7.2.1-6
+BuildRequires: gcc >= 7.2.1-6
 %define enablekernel 3.2
-Conflicts:            kernel < %{enablekernel}
+Conflicts: kernel < %{enablekernel}
 %define target %{_target_cpu}-redhat-linux
 %ifarch %{arm}
 %define target %{_target_cpu}-redhat-linuxeabi
@@ -950,34 +974,34 @@ Conflicts:            kernel < %{enablekernel}
 %endif
 
 # GNU make 4.0 introduced the -O option.
-BuildRequires:        make >= 4.0
+BuildRequires: make >= 4.0
 
 # The intl subsystem generates a parser using bison.
-BuildRequires:        bison >= 2.7
+BuildRequires: bison >= 2.7
 
 # binutils 2.30-17 is needed for --generate-missing-build-notes.
-BuildRequires:        binutils >= 2.30-17
+BuildRequires: binutils >= 2.30-17
 
 # Earlier releases have broken support for IRELATIVE relocations
-Conflicts:            prelink < 0.4.2
+Conflicts: prelink < 0.4.2
 
 %if %{without bootstrap}
 %if %{with testsuite}
 # The testsuite builds static C++ binaries that require a C++ compiler,
 # static C++ runtime from libstdc++-static, and lastly static glibc.
-BuildRequires:        gcc-c++
-BuildRequires:        libstdc++-static
+BuildRequires: gcc-c++
+BuildRequires: libstdc++-static
 # A configure check tests for the ability to create static C++ binaries
 # before glibc is built and therefore we need a glibc-static for that
 # check to pass even if we aren't going to use any of those objects to
 # build the tests.
-BuildRequires:        glibc-static
+BuildRequires: glibc-static
 
 # libidn2 (but not libidn2-devel) is needed for testing AI_IDN/NI_IDN.
-BuildRequires:        libidn2
+BuildRequires: libidn2
 
 # The testsuite runs mtrace, which is a perl script
-BuildRequires:        perl-interpreter
+BuildRequires: perl-interpreter
 %endif
 %endif
 
@@ -994,15 +1018,15 @@ BuildRequires:        perl-interpreter
 # but we no longer do this to minimize container and VM sizes.
 # Today you must actively use the language packs infrastructure to
 # install language support.
-Requires:             glibc-langpack = %{version}-%{release}
-Suggests:             glibc-minimal-langpack = %{version}-%{release}
+Requires: glibc-langpack = %{version}-%{release}
+Suggests: glibc-minimal-langpack = %{version}-%{release}
 
 # Suggest extra gconv modules so that they are installed by default but can be
 # removed if needed to build a minimal OS image.
-Recommends:           glibc-gconv-extra%{_isa} = %{version}-%{release}
+Recommends: glibc-gconv-extra%{_isa} = %{version}-%{release}
 # Use redhat-rpm-config as a marker for a buildroot configuration, and
 # unconditionally pull in glibc-gconv-extra in that case.
-Requires:             (glibc-gconv-extra%{_isa} = %{version}-%{release} if redhat-rpm-config)
+Requires: (glibc-gconv-extra%{_isa} = %{version}-%{release} if redhat-rpm-config)
 
 %description
 The glibc package contains standard libraries which are used by
@@ -1018,8 +1042,8 @@ Linux system will not function.
 ######################################################################
 
 %package -n libnsl
-Summary:              Legacy support library for NIS
-Requires:             %{name}%{_isa} = %{version}-%{release}
+Summary: Legacy support library for NIS
+Requires: %{name}%{_isa} = %{version}-%{release}
 
 %description -n libnsl
 This package provides the legacy version of libnsl library, for
@@ -1032,19 +1056,19 @@ applications should use libnsl2 instead to gain IPv6 support.
 # glibc "devel" sub-package
 ##############################################################################
 %package devel
-Summary:              Object files for development using standard C libraries.
-Requires:             %{name} = %{version}-%{release}
-Requires:             libxcrypt-devel%{_isa} >= 4.0.0
-Requires:             kernel-headers >= 3.2
-BuildRequires:        kernel-headers >= 3.2
+Summary: Object files for development using standard C libraries.
+Requires: %{name} = %{version}-%{release}
+Requires: libxcrypt-devel%{_isa} >= 4.0.0
+Requires: kernel-headers >= 3.2
+BuildRequires: kernel-headers >= 3.2
 %if %{need_headers_package}
-Requires:             %{headers_package_name} = %{version}-%{release}
+Requires: %{headers_package_name} = %{version}-%{release}
 %endif
 %if !(0%{?rhel} > 0 && %{need_headers_package})
 # For backwards compatibility, when the glibc-headers package existed.
-Provides:             glibc-headers = %{version}-%{release}
-Provides:             glibc-headers(%{_target_cpu})
-Obsoletes:            glibc-headers < %{version}-%{release}
+Provides: glibc-headers = %{version}-%{release}
+Provides: glibc-headers(%{_target_cpu})
+Obsoletes: glibc-headers < %{version}-%{release}
 %endif
 
 %description devel
@@ -1063,15 +1087,15 @@ use the standard C libraries.
 ##############################################################################
 %if %{with docs}
 %package doc
-Summary:              Documentation for GNU libc
-BuildArch:            noarch
-Requires:             %{name} = %{version}-%{release}
+Summary: Documentation for GNU libc
+BuildArch: noarch
+Requires: %{name} = %{version}-%{release}
 
 # Removing texinfo will cause check-safety.sh test to fail because it seems to
 # trigger documentation generation based on dependencies.  We need to fix this
 # upstream in some way that doesn't depend on generating docs to validate the
 # texinfo.  I expect it's simply the wrong dependency for that target.
-BuildRequires:        texinfo >= 5.0
+BuildRequires: texinfo >= 5.0
 
 %description doc
 The glibc-doc package contains The GNU C Library Reference Manual in info
@@ -1082,9 +1106,9 @@ format.  Additional package documentation is also provided.
 # glibc "static" sub-package
 ##############################################################################
 %package static
-Summary:              C library static libraries for -static linking.
-Requires:             %{name}-devel = %{version}-%{release}
-Requires:             libxcrypt-static%{?_isa} >= 4.0.0
+Summary: C library static libraries for -static linking.
+Requires: %{name}-devel = %{version}-%{release}
+Requires: libxcrypt-static%{?_isa} >= 4.0.0
 
 %description static
 The glibc-static package contains the C library static libraries
@@ -1102,14 +1126,14 @@ which is highly discouraged.
 ##############################################################################
 %if %{need_headers_package}
 %package -n %{headers_package_name}
-Summary:              Additional internal header files for glibc-devel.
-Requires:             %{name} = %{version}-%{release}
+Summary: Additional internal header files for glibc-devel.
+Requires: %{name} = %{version}-%{release}
 %if 0%{?rhel} > 0
-Provides:             %{name}-headers(%{_target_cpu})
-Obsoletes:            glibc-headers-x86 < %{version}-%{release}
-Obsoletes:            glibc-headers-s390 < %{version}-%{release}
+Provides: %{name}-headers(%{_target_cpu})
+Obsoletes: glibc-headers-x86 < %{version}-%{release}
+Obsoletes: glibc-headers-s390 < %{version}-%{release}
 %else
-BuildArch:            noarch
+BuildArch: noarch
 %endif
 
 %description -n %{headers_package_name}
@@ -1121,9 +1145,9 @@ header files which cannot be included in glibc-devel package.
 # glibc "common" sub-package
 ##############################################################################
 %package common
-Summary:              Common binaries and locale data for glibc
-Requires:             %{name} = %{version}-%{release}
-Requires:             tzdata >= 2003a
+Summary: Common binaries and locale data for glibc
+Requires: %{name} = %{version}-%{release}
+Requires: tzdata >= 2003a
 
 %description common
 The glibc-common package includes common binaries for the GNU libc
@@ -1153,9 +1177,9 @@ libraries, as well as national language (locale) support.
 ######################################################################
 
 %package locale-source
-Summary:              The sources for the locales
-Requires:             %{name} = %{version}-%{release}
-Requires:             %{name}-common = %{version}-%{release}
+Summary: The sources for the locales
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-common = %{version}-%{release}
 
 %description locale-source
 The sources for all locales provided in the language packs.
@@ -1492,12 +1516,12 @@ local function lang_package(locale)
 
 %package langpack-]]..lang..[[
 
-Summary:              Locale data for ]]..langname..[[
+Summary: Locale data for ]]..langname..[[
 
-Provides:             glibc-langpack = %{version}-%{release}
-Requires:             %{name} = %{version}-%{release}
-Requires:             %{name}-common = %{version}-%{release}
-Supplements:          (glibc and (]]..suppl..[[))
+Provides: glibc-langpack = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-common = %{version}-%{release}
+Supplements: (glibc and (]]..suppl..[[))
 %description langpack-]]..lang..[[
 
 The glibc-langpack-]]..lang..[[ package includes the basic information required
@@ -1516,10 +1540,10 @@ end
 # Users can add one more other langauge packs and then eventually
 # uninstall all-langpacks to save space.
 %package all-langpacks
-Summary:              All language packs for %{name}.
-Requires:             %{name} = %{version}-%{release}
-Requires:             %{name}-common = %{version}-%{release}
-Provides:             %{name}-langpack = %{version}-%{release}
+Summary: All language packs for %{name}.
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-common = %{version}-%{release}
+Provides: %{name}-langpack = %{version}-%{release}
 %description all-langpacks
 
 # No %files, this is an empty package. The C/POSIX and
@@ -1529,10 +1553,10 @@ Provides:             %{name}-langpack = %{version}-%{release}
 # to satisfy it. Given that no-locales installed is a valid
 # use case we support it here with this package.
 %package minimal-langpack
-Summary:              Minimal language packs for %{name}.
-Provides:             glibc-langpack = %{version}-%{release}
-Requires:             %{name} = %{version}-%{release}
-Requires:             %{name}-common = %{version}-%{release}
+Summary: Minimal language packs for %{name}.
+Provides: glibc-langpack = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-common = %{version}-%{release}
 %description minimal-langpack
 This is a Meta package that is used to install minimal language packs.
 This package ensures you can use C, POSIX, or C.UTF-8 locales, but
@@ -1541,9 +1565,9 @@ nothing else. It is designed for assembling a minimal system.
 
 # Infrequently used iconv converter modules.
 %package gconv-extra
-Summary:              All iconv converter modules for %{name}.
-Requires:             %{name}%{_isa} = %{version}-%{release}
-Requires:             %{name}-common = %{version}-%{release}
+Summary: All iconv converter modules for %{name}.
+Requires: %{name}%{_isa} = %{version}-%{release}
+Requires: %{name}-common = %{version}-%{release}
 
 %description gconv-extra
 This package contains all iconv converter modules built in %{name}.
@@ -1563,14 +1587,14 @@ This package contains all iconv converter modules built in %{name}.
 # bug 1905142: https://fedoraproject.org/wiki/Changes/RemoveNSCD
 ##############################################################################
 %package -n nscd
-Summary:              A Name Service Caching Daemon (nscd).
+Summary: A Name Service Caching Daemon (nscd).
 # Fedora 35 is planned for release on Oct 26 2021, with nscd removed
-Provides:             deprecated() = 20211026
-Requires:             %{name} = %{version}-%{release}
+Provides: deprecated() = 20211026
+Requires: %{name} = %{version}-%{release}
 %if %{without bootstrap}
-Requires:             libselinux >= 1.17.10-1
+Requires: libselinux >= 1.17.10-1
 %endif
-Requires:             audit-libs >= 1.1.3
+Requires: audit-libs >= 1.1.3
 Requires(pre): systemd, coreutils
 Requires(post): systemd
 Requires(preun): systemd
@@ -1593,13 +1617,13 @@ performance with LDAP, and may help with DNS as well.
 # The different database format does cause some issues for users:
 # https://lists.fedoraproject.org/pipermail/devel/2011-December/160497.html
 %package -n nss_db
-Summary:              Name Service Switch (NSS) module using hash-indexed files
-Requires:             %{name}%{_isa} = %{version}-%{release}
+Summary: Name Service Switch (NSS) module using hash-indexed files
+Requires: %{name}%{_isa} = %{version}-%{release}
 %ifarch x86_64
 # Automatically install the 32-bit variant if the 64-bit variant has
 # been installed.  This covers the case when glibc.i686 is installed
 # before nss_db.x86_64.  (See above for the other ordering.)
-Recommends:           (nss_db(x86-32) if glibc(x86-32))
+Recommends: (nss_db(x86-32) if glibc(x86-32))
 %endif
 
 %description -n nss_db
@@ -1607,13 +1631,13 @@ The nss_db Name Service Switch module uses hash-indexed files in /var/db
 to speed up user, group, service, host name, and other NSS-based lookups.
 
 %package -n nss_hesiod
-Summary:              Name Service Switch (NSS) module using Hesiod
-Requires:             %{name}%{_isa} = %{version}-%{release}
+Summary: Name Service Switch (NSS) module using Hesiod
+Requires: %{name}%{_isa} = %{version}-%{release}
 %ifarch x86_64
 # Automatically install the 32-bit variant if the 64-bit variant has
 # been installed.  This covers the case when glibc.i686 is installed
 # before nss_hesiod.x86_64.  (See above for the other ordering.)
-Recommends:           (nss_hesiod(x86-32) if glibc(x86-32))
+Recommends: (nss_hesiod(x86-32) if glibc(x86-32))
 %endif
 
 %description -n nss_hesiod
@@ -1622,10 +1646,10 @@ The nss_hesiod Name Service Switch module uses the Domain Name System
 the Hesiod convention of Project Athena.
 
 %package nss-devel
-Summary:              Development files for directly linking NSS service modules
-Requires:             %{name}%{_isa} = %{version}-%{release}
-Requires:             nss_db%{_isa} = %{version}-%{release}
-Requires:             nss_hesiod%{_isa} = %{version}-%{release}
+Summary: Development files for directly linking NSS service modules
+Requires: %{name}%{_isa} = %{version}-%{release}
+Requires: nss_db%{_isa} = %{version}-%{release}
+Requires: nss_hesiod%{_isa} = %{version}-%{release}
 
 %description nss-devel
 The glibc-nss-devel package contains the object files necessary to
@@ -1639,8 +1663,8 @@ the glibc-devel package instead.
 # glibc "utils" sub-package
 ##############################################################################
 %package utils
-Summary:              Development utilities from GNU C library
-Requires:             %{name} = %{version}-%{release}
+Summary: Development utilities from GNU C library
+Requires: %{name} = %{version}-%{release}
 
 %description utils
 The glibc-utils package contains memusage, a memory usage profiler,
@@ -1651,7 +1675,7 @@ If unsure if you need this, don't install this package.
 
 %if %{with benchtests}
 %package benchtests
-Summary:              Benchmarking binaries and scripts for %{name}
+Summary: Benchmarking binaries and scripts for %{name}
 %description benchtests
 This package provides built benchmark binaries and scripts to run
 microbenchmark tests on the system.
@@ -1662,7 +1686,7 @@ microbenchmark tests on the system.
 # See: https://sourceware.org/bugzilla/show_bug.cgi?id=23500
 ##############################################################################
 %package -n compat-libpthread-nonshared
-Summary:              Compatibility support for linking against libpthread_nonshared.a.
+Summary: Compatibility support for linking against libpthread_nonshared.a.
 
 %description -n compat-libpthread-nonshared
 This package provides compatibility support for applications that expect
@@ -1675,12 +1699,12 @@ runtime and should not be expected to exist.
 
 %if %{without bootstrap}
 %package -n %sysroot_package_arch
-Summary:              Sysroot package for glibc, %{_arch} architecture
-BuildArch:            noarch
-Provides:             sysroot-%{_arch}-%{name}
+Summary: Sysroot package for glibc, %{_arch} architecture
+BuildArch: noarch
+Provides: sysroot-%{_arch}-%{name}
 # The files are not usable for execution, so do not provide nor
 # require anything.
-AutoReqProv:          no
+AutoReqProv: no
 
 %description -n %sysroot_package_arch
 This package contains development files for the glibc package
@@ -3031,9 +3055,26 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
-* Wed Feb 05 2025 Jason Rodriguez <jrodriguez@ciq.com> - 2.34-125.0.1
-- Fix assert() buffer overflow CVE-2025-0395 discovered by Qualys:
-https://www.openwall.com/lists/oss-security/2025/01/22/4
+* Thu Apr  3 2025 Florian Weimer <fweimer@redhat.com> - 2.34-125.8
+- Re-activate rseq acceleration for sched_getcpu (RHEL-83524)
+
+* Thu Apr  3 2025 Florian Weimer <fweimer@redhat.com> - 2.34-125.7
+- Adjust __rseq_size behavior to upstream (RHEL-65285)
+
+* Fri Mar 28 2025 Arjun Shankar <arjun@redhat.com> - 2.34-125.6
+- CVE-2025-0395: Fix a buffer overflow in assert (RHEL-83294)
+
+* Fri Mar 28 2025 Arjun Shankar <arjun@redhat.com> - 2.34-125.5
+- Make test tst-cpuclock2 run more reliably (RHEL-84324)
+
+* Wed Feb 26 2025 Patsy Griffin <patsy@redhat.com> - 2.34-125.4
+- stdlib: Make getenv thread-safe in more cases (RHEL-70707)
+
+* Thu Feb 13 2025 Carlos O'Donell <carlos@redhat.com> - 2.34-125.3
+- Fix missed wakeup in POSIX thread condition variables (RHEL-78939)
+
+* Fri Dec  6 2024 DJ Delorie <dj@redhat.com> - 2.34-125.2
+- add GB18030-2022 charmap and tests (RHEL-69003)
 
 * Fri Sep 27 2024 Florian Weimer <fweimer@redhat.com> - 2.34-125.1
 - Remove some unused ppc64le string functions (RHEL-49489)
